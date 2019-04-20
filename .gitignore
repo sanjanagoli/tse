@@ -1,0 +1,8 @@
+# What follows affect this top-level directory and all subdirectories.
+
+# files created by and for emacs
+TAGS
+
+# Do NOT push data files to git.
+# I suggest you create crawler/indexer output in subdirectories of ./data
+data
