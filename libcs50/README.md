@@ -10,7 +10,7 @@ The starter kit includes a pre-built library, `libcs50-given.a`, in case you pre
 If you prefer our data-structure implementation over your own, modify the Makefile to replace the rule for `$(LIB)`:
 
 ```
-$(LIB):
+$(LIB): libcs50-given.a
 	cp libcs50-given.a $(LIB)
 ```
 Notice that command just copies the relevant pre-compiled library to `libcs50.a`.

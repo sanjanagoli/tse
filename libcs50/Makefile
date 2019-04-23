@@ -1,6 +1,11 @@
 # Makefile for CS50 library
 #   Builds and compiles all these utility functions into a library.
 #
+# If you prefer our data-structure implementation over your own, modify 
+# the rule for `$(LIB)`:
+# $(LIB): libcs50-given.a
+#	cp libcs50-given.a $(LIB)
+#
 # David Kotz, April 2016, July 2017, April 2019
 # updated by Xia Zhou, July 2016
 
