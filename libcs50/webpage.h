@@ -119,7 +119,7 @@ char *webpage_getNextWord(webpage_t *page, int *pos);
 /****************** webpage_getNextURL ***********************************/
 /* return the next url from html[pos]
  * @page: pointer to the webpage info
- * @pos: current position in html buffer; updated to first pos after the word.
+ * @pos: current position in html buffer; updated to first pos after the URL.
  *
  * Returns pointer to the next URL, if any; otherwise, returns NULL.
  * The page should already exist (not NULL), and contain non-NULL html.
