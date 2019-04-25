@@ -1,0 +1,184 @@
+/*
+* Sanjana Goli, April 2019
+* Lab 4 - crawler.c
+* 
+* Input: The user must input 
+*	1. seedURL (must be internal) 
+*	2. pathname (of an existing directory) 
+*	3. maxdepth (between 1 and 10) - represents minimum crawl depth
+* 
+* Output:
+* 
+*
+* Description: 
+*
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <math.h>
+#include "webpage.h"
+#include "bag.h"
+#include "hashtable.h"
+
+void crawler(char *url, char *pathname, int maxDepth);
+bool pagefetcher(webpage_t *page);
+void pagesaver(webpage_t *page, int id, char *pathname);
+void pagescanner(webpage_t *page, hashtable_t *seenUrls);
+
+
+int 
+main(int argc, char *argv[])
+{
+	if (argc == 4) {
+		
+		int length = strlen(argv[2]);
+
+		//converts input to integer
+		int maxDepth = atoi(argv[3]);
+
+		//have to have an unchanged copy of the pathname
+		// char path[strlen(argv[2]+1)];
+		// strcpy(path, argv[2]);
+
+		char *pathname = argv[2];
+		char *url = argv[1];
+
+
+		char *filename = argv[2];
+		strcat(filename, "/crawler.crawler");
+		
+
+		//checks if input is valid
+		if (fopen(filename, "w") != NULL) {
+			if (IsInternalURL(url) == false|| !(maxDepth >= 1 && maxDepth <= 10)) {
+				fprintf(stderr, "URL must be an internal URL and maxdepth must be between 1-10. \n");
+				return 1;
+			}
+
+		} else {
+			//fclose(filename);
+			fprintf(stderr, "Directory does not exist!\n");
+			return 1;
+		}
+
+		pathname[length] = '\0';
+		printf("printing argv[2] %s ", pathname);
+		crawler(url, pathname, maxDepth);
+
+	//is not valid usage of program
+	} else {
+		fprintf(stderr, "usage: ./crawler seedURL pageDirectory maxDepth \n");
+		return 1;
+	}
+}
+
+void
+crawler(char *url, char *pathname, int maxDepth)
+{	
+	//initializing modules to be used in program
+	hashtable_t *seenUrls = hashtable_new(100);
+	bag_t *toCrawl = bag_new();
+	
+	if (seenUrls == NULL) {
+	    fprintf(stderr, "hashtable was not properly initialized \n");
+	    //return false;
+  	} 
+ 	if (toCrawl == NULL) {
+  		fprintf(stderr, "bag was not propertly initialized \n");
+  		//return false;
+  	}
+
+
+	webpage_t *seed = webpage_new(url, 0, NULL);
+	if(seed == NULL) {
+		fprintf(stderr, "Error: seed is null");
+	}
+
+
+	bag_insert(toCrawl, seed);
+	hashtable_insert(seenUrls, url, seed);
+
+	int id = 1;
+	webpage_t *page;
+	while ( (page = bag_extract(toCrawl)) != NULL ) {
+		pagefetcher(page);
+		pagesaver(page, id, pathname);
+
+		//need to increment after saving page so that each page has unique id in directory
+		id++;
+
+
+		if (webpage_getDepth(page) < maxDepth) {
+			pagescanner(page, seenUrls);
+		}
+	}
+
+
+}
+
+bool
+pagefetcher(webpage_t *page)
+{
+	if(webpage_fetch(page) == false) {
+		fprintf(stderr, "The webpage was not fetched");
+		return false;
+	} else {
+		return true;
+	}
+	
+}
+
+
+/*  pagesaver method designed to write to file in specified directory;
+  	assumption: none of the filenames in directory are integers  */
+
+void
+pagesaver(webpage_t *page, int id, char *pathname)
+{
+	//digits taken from https://stackoverflow.com/questions/3068397/finding-the-length-of-an-integer-in-c
+	int digits = floor(log10(abs(id))) + 1;
+	char filename[digits + strlen(pathname)];
+
+	//saves whatever would be printed to the char pointer filename
+	sprintf(filename, "%s/%d", pathname, id);
+	printf("filename: %s \n", filename);
+
+
+	//printing to file
+	FILE * fp;
+	if( (fp = fopen(filename, "w")) != NULL ) {
+		//add url to beginning of file, followed by depth and HTML
+		fprintf(fp, "%s\n", webpage_getURL(page));
+		fprintf(fp, "%d\n", webpage_getDepth(page));
+		fprintf(fp, "%s\n", webpage_getHTML(page));
+
+		fclose(fp);
+	} else {
+		//exit if program cannot write to file
+		fprintf(stderr, "Error: program could not write to new file in directory");
+		exit(1);
+	}
+		
+}
+
+void
+pagescanner(webpage_t *page, hashtable_t *seenUrls)
+{
+
+	int pos = 0;
+	char *result;
+
+	while ((result = webpage_getNextURL(page, &pos)) != NULL) {
+		printf("Found url: %s\n", result);
+		webpage_t *nextPage = webpage_new(result, 0, NULL);
+		hashtable_insert(seenUrls, result, nextPage);
+		free(result);
+  	}
+
+}
+
+
+
