@@ -26,7 +26,8 @@
 void crawler(char *url, char *pathname, int maxDepth);
 bool pagefetcher(webpage_t *page);
 void pagesaver(webpage_t *page, int id, char *pathname);
-void pagescanner(webpage_t *page, hashtable_t *seenUrls);
+void pagescanner(webpage_t *page, hashtable_t *seenUrls, bag_t *toCrawl);
+inline static void logr(const char *word, const int depth, const char *url);
 
 
 int 
@@ -45,6 +46,9 @@ main(int argc, char *argv[])
 
 		char *pathname = argv[2];
 		char *url = argv[1];
+
+		//have to normalize url before checking if it is internal below
+		NormalizeURL(url);
 
 
 		char *filename = argv[2];
@@ -99,7 +103,7 @@ crawler(char *url, char *pathname, int maxDepth)
 
 
 	bag_insert(toCrawl, seed);
-	hashtable_insert(seenUrls, url, seed);
+	hashtable_insert(seenUrls, url, " ");
 
 	int id = 1;
 	webpage_t *page;
@@ -112,8 +116,10 @@ crawler(char *url, char *pathname, int maxDepth)
 
 
 		if (webpage_getDepth(page) < maxDepth) {
-			pagescanner(page, seenUrls);
+			pagescanner(page, seenUrls, toCrawl);
+
 		}
+
 	}
 
 
@@ -123,9 +129,10 @@ bool
 pagefetcher(webpage_t *page)
 {
 	if(webpage_fetch(page) == false) {
-		fprintf(stderr, "The webpage was not fetched");
+		fprintf(stderr, "The webpage was not fetched.");
 		return false;
 	} else {
+		logr("Fetched", webpage_getDepth(page), webpage_getURL(page));
 		return true;
 	}
 	
@@ -144,7 +151,7 @@ pagesaver(webpage_t *page, int id, char *pathname)
 
 	//saves whatever would be printed to the char pointer filename
 	sprintf(filename, "%s/%d", pathname, id);
-	printf("filename: %s \n", filename);
+	//printf("filename: %s \n", filename);
 
 
 	//printing to file
@@ -165,20 +172,38 @@ pagesaver(webpage_t *page, int id, char *pathname)
 }
 
 void
-pagescanner(webpage_t *page, hashtable_t *seenUrls)
+pagescanner(webpage_t *page, hashtable_t *seenUrls, bag_t *toCrawl)
 {
+	logr("Scanning", webpage_getDepth(page), webpage_getURL(page));
 
 	int pos = 0;
 	char *result;
 
-	while ((result = webpage_getNextURL(page, &pos)) != NULL) {
-		printf("Found url: %s\n", result);
-		webpage_t *nextPage = webpage_new(result, 0, NULL);
-		hashtable_insert(seenUrls, result, nextPage);
-		free(result);
-  	}
-
+	if(page != NULL) {
+		while ((result = webpage_getNextURL(page, &pos)) != NULL) {
+			
+			//NormalizeURL(result);
+			logr("Found", webpage_getDepth(page), result);
+			if (IsInternalURL(result)) {
+				if (hashtable_insert(seenUrls, result, " ")) {
+					webpage_t *nextPage = webpage_new(result, webpage_getDepth(page)+1, NULL);
+					bag_insert(toCrawl, nextPage);
+				}
+			} else {
+				logr("IgnExtrn", webpage_getDepth(page), result);
+			}
+			
+			//free(result);
+  		}
+	}
 }
+
+inline static void logr(const char *word, const int depth, const char *url)
+{
+  printf("%2d %s%9s: %s\n", depth, "", word, url);
+}
+
+
 
 
 
