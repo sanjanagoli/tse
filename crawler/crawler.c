@@ -22,6 +22,7 @@
 #include "webpage.h"
 #include "bag.h"
 #include "hashtable.h"
+// #include "pagedir.h"
 
 void crawler(char *url, char *pathname, int maxDepth);
 bool pagefetcher(webpage_t *page);
@@ -55,10 +56,9 @@ main(int argc, char *argv[])
 		NormalizeURL(url);
 
 
-		char *filename = (char *)malloc(17+(strlen(argv[2]))*sizeof(char));
+		char *filename = (char *)malloc(10+(strlen(argv[2]))*sizeof(char));
 		strcpy(filename, argv[2]);
-		strcat(filename, "/crawler.crawler");
-		//printf("this is filename: %s \n", filename);
+		strcat(filename, "/.crawler");
 		
 
 		//checks if input is valid
@@ -77,6 +77,10 @@ main(int argc, char *argv[])
 
 		//pathname[length] = '\0';
 		//printf("printing argv[2] %s \n", argv[2]);
+
+		// FILE *file;
+		// check_directory(filename, "/.crawler", file);
+
 		crawler(url, pathname, maxDepth);
 
 		free(pathname);
@@ -129,7 +133,7 @@ crawler(char *url, char *pathname, int maxDepth)
 		if (webpage_getDepth(page) < maxDepth) {
 			pagescanner(page, seenUrls, toCrawl);
 		} else {
-			printf("deleting page with this url %s \n", webpage_getURL(page));
+			//printf("deleting page with this url %s \n", webpage_getURL(page));
 			
 		}
 		webpage_delete(page);

@@ -1,0 +1,114 @@
+http://old-www.cs.dartmouth.edu/~campbell/page-7/
+1
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<meta charset="utf-8" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="robots" content="index, follow" />
+		<meta name="generator" content="RapidWeaver" />
+		
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Talks | Andrew T. Campbell">
+	<meta name="twitter:image" content="/~campbell/resources/Screenshot-2018-10-20-22.51.37.png">
+	<meta name="twitter:url" content="https://www.cs.dartmouth.edu/~campbell/page-7/index.html">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Andrew T. Campbell">
+	<meta property="og:title" content="Talks | Andrew T. Campbell">
+	<meta property="og:image" content="/~campbell/resources/Screenshot-2018-10-20-22.51.37.png">
+	<meta property="og:url" content="https://www.cs.dartmouth.edu/~campbell/page-7/index.html"> 
+
+	<!-- Meta tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+	<title>Talks | Andrew T. Campbell</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../rw_common/themes/Mountains/consolidated.css?rwcache=561862934" />
+		
+	    		<link rel='stylesheet' type='text/css' media='all' href='../rw_common/plugins/stacks/stacks.css?rwcache=561862934' />
+		<link rel='stylesheet' type='text/css' media='all' href='files/stacks_page_page7.css?rwcache=561862934' />
+        
+        
+        
+        
+		
+        <meta name="formatter" content="Stacks v3.6.4 (4202)" >
+		
+
+</head>
+
+<!-- This page was created with RapidWeaver from Realmac Software. http://www.realmacsoftware.com -->
+
+<body>
+    <div class="hero" id="hero">
+        <nav class="navbar navbar-expand-lg pt-3">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto"><li class="nav-item"><a href="../" rel="" class="nav-link">Home</a></li><li class="nav-item"><a href="../page-6/" rel="" class="nav-link">Awards</a></li><li class="nav-item"><a href="../page-5/" rel="" class="nav-link">Teaching</a></li><li class="nav-item"><a href="../page-4/" rel="" class="nav-link">Students</a></li><li class="nav-item active"><a href="./" rel="" class="nav-link">Talks</a></li><li class="nav-item"><a href="../page-8/" rel="" class="nav-link">Funding</a></li><li class="nav-item"><a href="../page-3/" rel="" class="nav-link">Research</a></li><li class="nav-item"><a href="../page/" rel="" class="nav-link">Publications</a></li><li class="nav-item"><a href="../page-2/" rel="" class="nav-link">News</a></li></ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="hero-content" id="hero">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="hero-title display-1" data-aos="fade-right" data-aos-delay="300" data-aos-duration="500">Andrew T. Campbell</h1>
+                        <h2 class="hero-slogan font-italic display-4" data-aos="fade-right" data-aos-delay="350" data-aos-duration="500">A world where mobile AI helps keep people healthy</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-background"></div>
+    </div>
+
+
+	<main class="content">
+		<div class="container">
+			<div class="row intro justify-content-between">
+				<div class="col-sm-8 intro-col" data-aos="fade-right" data-aos-delay="300" data-aos-duration="500">
+                    
+<div id='stacks_out_1_page7' class='stacks_top'><div id='stacks_in_1_page7' class=''><div id='stacks_out_4_page7' class='stacks_out'><div id='stacks_in_4_page7' class='stacks_in com_yourhead_stack_header_stack'><h3>Keynotes</h3></div></div><div id='stacks_out_2_page7' class='stacks_out'><div id='stacks_in_2_page7' class='stacks_in text_stack'><ul class="disc"><li>&ldquo;Future of Mental Health Sensing on College Campuses&rdquo;, ACM HotMobile, 2018. </li><li>&ldquo;My brother Ed: Mental illness was not his choice&rdquo;, ACM UbiComp workshop on mental health, 2016. </li><li>"The StudentLife Project: Using Smartphones to Assess Sociability, Mental Health, and Academic Performance of College Students", AAAI Conference on Web and Social Media (ICWSM 2015), Oxford, May 2015. </li><li>&ldquo;Using Smartphones to Assess Mental Health and Academic Performance of College Students&rdquo;, 13th Annual Depression on College Campuses Conference, March 2015. </li><li>"BioRhythm Study: A term in the life of a Dartmouth Class", at the UbiComp 13 workshop on mobile systems for computational social science, Zurich, September 2013. </li><li>"Rise of mobile sensing and the end of the smartphone era", IEEE Conference on Sensing, Communications and Networking (SECON), New Orleans, June 2013. </li><li>&ldquo;My phone told me I'm stressed and should go for a run", EPSRC-funded Cross-Disciplinary Research Conference, London, October 9-10, 2012. </li><li>&ldquo;Smartphone Sensing for the Masses&rdquo;, ACM Eye Tracking Research & Applications Symposium (ETRA 2012), Santa Barbara, March 28-30, 2012. </li><li>"Smartphone Sensing for the Masses", Pre-Conference Workshop on Using Smartphones as Mobile Sensing Devices: A Practical Guide for Psychologists to Current and Potential Capabilities, Thirteenth Annual Meeting of the Society for Personality and Social Psychology (SPSP), January 26-28, 2012. </li><li>&ldquo;Smartphone Sensing&rdquo;, Eighth Annual International Conference on Mobile and Ubiquitous Systems: Computing, Networking and Services (MobiQuitous), Copenhagen, December 6-8, 2011. </li><li>&ldquo;After Smartphones, Cognitive Phones: Enabling Behavioral Applications and Networks&rdquo;, Workshop on Social Sensing: Mobile Sensing meets Social Science", University of Cambridge, Cambridge, UK, 17th March 2011.</li><li>&ldquo;Mobile Phone Sensing is the Next Big Thing!&rdquo;, ACM Workshop on Mobile Opportunistic Networking (MobiOpp 2010), Pisa, Italy, February 22-23, 2010. </li><li>&ldquo;People-Centric Sensing and the Rise of the Global Mobile Sensor Network&rdquo;, SENIOT: From Sensor Networks to Networked Intelligent Objects, Bertinoro International Center for Informatics (BiCi), International CONET Summer School, Bertinoro (Forl&igrave;-Cesena), Italy, July 26 - August 1, 2009. </li><li>&ldquo;After Motes and Multihop: Mobile Phones and the Global Mobile Sensor Network&rdquo;, 7th IEEE International Conference on Pervasive Computing and Communications (PerCom), Galveston, Texas, March 9-13, 2009.</li><li>&ldquo;The Rise of People-Centric Sensing&rdquo;, 10th International Conference of Distributed Computing and Networking (ICDCN), Hyderabad, India, January 3-6, 2009. </li><li>&ldquo;The Rise of People-Centric Sensing&rdquo; (Invited talk), BCS Visions in Computer Science, London, Imperial College, London September 22-24, 2007. </li><li>&ldquo;MetroSense: People-Centric Sensing at Scale&rdquo;, 2nd European Conference on Smart Sensing and Context (EuroSSC 2007), Lancaster, UK, October 23-25, 2007. </li><li>&ldquo;MetroSense: People-Centric Sensing at Scale&rdquo;, ACM International Workshop on Wireless Sensor Network Architecture, Boston, April 24, 2007. </li><li>&ldquo;Showstoppers for Sensors", 12th IEEE International Workshop Quality of Service (IWQoS 2004), Montreal, Canada, June 7 &ndash; 9, 2004. </li><li>&ldquo;Showstoppers for Sensors", 4th Workshop on Applications and Services in Wireless Networks (ASWN 2004), Boston, August 8-11, 2004. </li><li>&ldquo;Genesis Project: Results and Experiences&rdquo;, EPSRC Programmable Networks Workshop, Brighton, United Kingdom, December 10, 2004. </li><li>&ldquo;Showstoppers for Sensors", EPSRC Annual Post Graduate Networking Conference (PGNet 2003), Liverpool, United Kingdom, June 16-17, 2003. </li><li>&ldquo;IP Unwired&rdquo;, IDMS/PROMS 2002 Joint International Workshop on Interactive Distributed Multimedia Systems / Protocols for Multimedia Systems, University of Coimbra, Coimbra, Portugal, November 26-29, 2002. </li><li>&ldquo;Unwiring IP &ndash; the only true path to 4G&rdquo;, Symposium on The Path to 4G, London, October 21-23, 2002. </li><li>&ldquo;Which Way to the Wireless Internet?&rdquo;, 6th International Conference on Protocols for Multimedia Systems (PROM 2001), Enschede, Netherlands, October 17-19, 2001. </li><li>&ldquo;Untangling the Wireless Web&rdquo;, Symposium on The Path to 4G, Helsinki, September 13-14, 2001. </li><li>&ldquo;Untangling the Wireless Web&rdquo;, Conference on IP-based Cellular Networks (IPCN 2001), Paris, France, 16-18 May 2001. </li><li>&ldquo;4G: What is it Good For?&rdquo;, ACM Workshop on Modeling, Analysis and Simulation of Wireless and Mobile Systems (MSWiM 2000) , Boston, Massachusetts, USA August 11, 2000. </li><li>&ldquo;Service Velocity&rdquo;, IFIP Mini-Conference on Multimedia Management, IFIP Networking 2000, Paris, May 2000.</li></ul></div></div></div></div>
+
+				</div>
+				<div class="sidebar col-sm-4 order-md-8" data-aos="fade-up">
+					<div class="logo" data-aos-delay="450" data-aos-duration="500">
+						<img src="../rw_common/images/andrew-cut-2017.png" width="269" height="349" alt="Andrew T. Campbell"/>
+                    </div>
+
+                    <div class="mt-5">
+                        <h3 class="sidebar-title">
+                            
+                        </h3>
+                        
+                        
+                    </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col" data-aos="fade-right" data-aos-delay="0" data-aos-duration="500">
+						<div class="footer-content text-center">
+							Thanks for dropping feel free to  <a href="#" id="rw_email_contact">contact me</a><script type="text/javascript">var _rwObsfuscatedHref0 = "mai";var _rwObsfuscatedHref1 = "lto";var _rwObsfuscatedHref2 = ":an";var _rwObsfuscatedHref3 = "dre";var _rwObsfuscatedHref4 = "wtp";var _rwObsfuscatedHref5 = "cam";var _rwObsfuscatedHref6 = "pbe";var _rwObsfuscatedHref7 = "ll@";var _rwObsfuscatedHref8 = "gma";var _rwObsfuscatedHref9 = "il.";var _rwObsfuscatedHref10 = "com";var _rwObsfuscatedHref = _rwObsfuscatedHref0+_rwObsfuscatedHref1+_rwObsfuscatedHref2+_rwObsfuscatedHref3+_rwObsfuscatedHref4+_rwObsfuscatedHref5+_rwObsfuscatedHref6+_rwObsfuscatedHref7+_rwObsfuscatedHref8+_rwObsfuscatedHref9+_rwObsfuscatedHref10; document.getElementById("rw_email_contact").href = _rwObsfuscatedHref;</script>
+                        </div>
+
+						<ul class="navbar-nav mr-auto"><li class="nav-item"><a href="../" rel="" class="nav-link">Home</a></li><li class="nav-item"><a href="../page-6/" rel="" class="nav-link">Awards</a></li><li class="nav-item"><a href="../page-5/" rel="" class="nav-link">Teaching</a></li><li class="nav-item"><a href="../page-4/" rel="" class="nav-link">Students</a></li><li class="nav-item active"><a href="./" rel="" class="nav-link">Talks</a></li><li class="nav-item"><a href="../page-8/" rel="" class="nav-link">Funding</a></li><li class="nav-item"><a href="../page-3/" rel="" class="nav-link">Research</a></li><li class="nav-item"><a href="../page/" rel="" class="nav-link">Publications</a></li><li class="nav-item"><a href="../page-2/" rel="" class="nav-link">News</a></li></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script type="text/javascript" src="../rw_common/themes/Mountains/js/main.js?rwcache=561862934"></script>
+</body>
+
+</html>

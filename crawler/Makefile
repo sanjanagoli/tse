@@ -3,6 +3,7 @@
 # Sanjana Goli, April 2019
 
 L = ../libcs50
+# LL = ../common
 
 PROG = crawler
 OBJS = crawler.o
@@ -17,7 +18,7 @@ all: $(PROG)
 $(PROG): $(OBJS) $(LLIBS)
 	$(CC) $(CFLAGS) $(OBJS) $(LLIBS) $(LIBS) -o $(PROG)
 
-crawler.o: $L/hashtable.h $L/file.h $L/webpage.h
+crawler.o: $L/hashtable.h $L/file.h $L/webpage.h #$LL/pagedir.h
 
 .PHONY: all clean
 

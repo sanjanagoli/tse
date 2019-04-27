@@ -1,0 +1,119 @@
+http://old-www.cs.dartmouth.edu/~campbell/index.html
+0
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<meta charset="utf-8" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="robots" content="index, follow" />
+		<meta name="generator" content="RapidWeaver" />
+		
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Home | Andrew T. Campbell">
+	<meta name="twitter:image" content="/~campbell/resources/Screenshot-2018-10-20-22.51.37.png">
+	<meta name="twitter:url" content="https://www.cs.dartmouth.edu/~campbell/index.html">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Andrew T. Campbell">
+	<meta property="og:title" content="Home | Andrew T. Campbell">
+	<meta property="og:image" content="/~campbell/resources/Screenshot-2018-10-20-22.51.37.png">
+	<meta property="og:url" content="https://www.cs.dartmouth.edu/~campbell/index.html"> 
+
+	<!-- Meta tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+	<title>Home | Andrew T. Campbell</title>
+	<link rel="stylesheet" type="text/css" media="all" href="rw_common/themes/Mountains/consolidated.css?rwcache=561862933" />
+		
+	    		<link rel='stylesheet' type='text/css' media='all' href='rw_common/plugins/stacks/stacks.css?rwcache=561862933' />
+		<link rel='stylesheet' type='text/css' media='all' href='files/stacks_page_page0.css?rwcache=561862933' />
+        
+        
+        
+        
+		
+        <meta name="formatter" content="Stacks v3.6.4 (4202)" >
+		
+
+</head>
+
+<!-- This page was created with RapidWeaver from Realmac Software. http://www.realmacsoftware.com -->
+
+<body>
+    <div class="hero" id="hero">
+        <nav class="navbar navbar-expand-lg pt-3">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto"><li class="nav-item active"><a href="./" rel="" class="nav-link">Home</a></li><li class="nav-item"><a href="page-6/" rel="" class="nav-link">Awards</a></li><li class="nav-item"><a href="page-5/" rel="" class="nav-link">Teaching</a></li><li class="nav-item"><a href="page-4/" rel="" class="nav-link">Students</a></li><li class="nav-item"><a href="page-7/" rel="" class="nav-link">Talks</a></li><li class="nav-item"><a href="page-8/" rel="" class="nav-link">Funding</a></li><li class="nav-item"><a href="page-3/" rel="" class="nav-link">Research</a></li><li class="nav-item"><a href="page/" rel="" class="nav-link">Publications</a></li><li class="nav-item"><a href="page-2/" rel="" class="nav-link">News</a></li></ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="hero-content" id="hero">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="hero-title display-1" data-aos="fade-right" data-aos-delay="300" data-aos-duration="500">Andrew T. Campbell</h1>
+                        <h2 class="hero-slogan font-italic display-4" data-aos="fade-right" data-aos-delay="350" data-aos-duration="500">A world where mobile AI helps keep people healthy</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-background"></div>
+    </div>
+
+
+	<main class="content">
+		<div class="container">
+			<div class="row intro justify-content-between">
+				<div class="col-sm-8 intro-col" data-aos="fade-right" data-aos-delay="300" data-aos-duration="500">
+                    
+<div id='stacks_out_1_page0' class='stacks_top'><div id='stacks_in_1_page0' class=''><div id='stacks_out_20_page0' class='stacks_out'><div id='stacks_in_20_page0' class='stacks_in text_stack'>I am is a professor of computer science at Dartmouth College. Before joining Dartmouth, I was a tenured associate professor of electrical engineering at Columbia University working on wireless networks. <blockquote><p>My research focuses on the development of mobile sensing (phones, wearables) technology capable of accurately assessing mental health (e.g., anxiety, depression, schizophrenia) using machine learning and predictive analytics. </p></blockquote>Prior to that, I spent ten years in the software industry leading the development of wireless packet networks and operating systems. I have been a visiting professor at CMU Rwanda, University of Salamanca and Cambridge University. During 2016-2017, I joined Google to work on cardiovascular health as a member of the Android group. Currently, I am a visiting research scientist at Verily (formerly Google Life Sciences) working on mental health.  My work has been covered widely by the popular press (New York Times, Financial Times, Economist), TV (BBC, CBS) and radio (NPR). <br /><br />During my career I have had the great fortune to closely collaborate with an amazing set of researchers who have inspired me -- starting with Professor Aurel Lazar (Columbia) during my Columbia years when I worked on computer networks, Professor Tanzeem Choudhury (Cornell) in the area of human dynamics and sensing, Professor  Dror Ben-Zeev (University of Washington) in the area of mental health, and Professor Xia Zhou (Dartmouth) in Mobile X.   At Dartmouth I co-direct the <a href="http://dartnets.cs.dartmouth.edu/">DartNets Lab</a> with the brilliant Professor Xia Zhou.<br /><br />I live in Vermont with my wife Susan Zak and our two sons Miles and Will.<br /></div></div><div id='stacks_out_129_page0' class='stacks_out'><div id='stacks_in_129_page0' class='stacks_in stack_stack'><div id='stacks_out_24_page0' class='stacks_out'><div id='stacks_in_24_page0' class='stacks_in com_yourhead_stack_header_stack'><h3>Research</h3></div></div><div id='stacks_out_33_page0' class='stacks_out'><div id='stacks_in_33_page0' class='stacks_in text_stack'>My research focuses on the development of computational methods for smartphones and wearables with the goal of understanding human behavior in the wild. I am particularly interested in mental health sensing and prediction using mobile phones. <blockquote><p>At Dartmouth, I lead the <a href="http://studentlife.cs.dartmouth.edu/">StudentLife</a> project where we are currently following 200 students across their 4 years at Dartmouth using mobile behavioral sensing and brain imaging to better understand mental health during the college years.</p></blockquote><br />I am fortunate to work with a fantastic <a href="page-4/" title="Students">group of PhD students</a> and faculty on tackling a number of problems in mental health and workplace performance; for details see<a href="page-3/" title="Research"> current projects</a>. I have <a href="page/" title="Publications">published</a> over 300 papers on wireless networks, sensor networks and mobile computing and been awarded research grants totaling $35M from a wide range of agencies (e.g., NSF, NIH, IAPRA) and companies (e.g., Google, Intel, NTT docomo). See <a href="https://scholar.google.com/citations?user=rthco5oAAAAJ&hl=en">Google Scholar</a> for my H-Index, citations and publications. <br /></div></div><div id='stacks_out_143_page0' class='stacks_out'><div id='stacks_in_143_page0' class='stacks_in stack_stack'><div class='slice empty out'><div class='slice empty in'></div></div></div></div><div id='stacks_out_147_page0' class='stacks_out'><div id='stacks_in_147_page0' class='stacks_in com_yourhead_stack_header_stack'><h3>Research</h3></div></div><div id='stacks_out_135_page0' class='stacks_out'><div id='stacks_in_135_page0' class='stacks_in text_stack'>My research focuses on the development of computational methods for smartphones and wearables with the goal of understanding human behavior in the wild. I am particularly interested in mental health sensing and prediction using mobile phones. <blockquote><p>At Dartmouth, I lead the <a href="http://studentlife.cs.dartmouth.edu/">StudentLife</a> project where we are currently following 200 students across their 4 years at Dartmouth using mobile behavioral sensing and brain imaging to better understand mental health during the college years.</p></blockquote><br />I am fortunate to work with a fantastic <a href="page-4/" title="Students">group of PhD students</a> and faculty on tackling a number of problems in mental health and workplace performance; for details see<a href="page-3/" title="Research"> current projects</a>. I have <a href="page/" title="Publications">published</a> over 300 papers on wireless networks, sensor networks and mobile computing and been awarded research grants totaling $35M from a wide range of agencies (e.g., NSF, NIH, IAPRA) and companies (e.g., Google, Intel, NTT docomo). See <a href="https://scholar.google.com/citations?user=rthco5oAAAAJ&hl=en">Google Scholar</a> for my H-Index, citations and publications. <br /></div></div></div></div><div id='stacks_out_149_page0' class='stacks_out'><div id='stacks_in_149_page0' class='stacks_in com_yourhead_stack_header_stack'><h3>Contact information</h3></div></div><div id='stacks_out_151_page0' class='stacks_out'><div id='stacks_in_151_page0' class='stacks_in text_stack'><ul class="disc"><li>Office: is located at <a href="https://goo.gl/maps/GEbhZkhe7Z72">Sudikoff 260</a>. </li><li>Email: andrewtpcampbell@gmail.com </li><li>Address: Professor Andrew T. Campbell Department of Computer Science 6211 Sudikoff Laboratory Dartmouth College Hanover, NH 03755-3510 USA.</li></ul></div></div><div id='stacks_out_125_page0' class='stacks_out'><div id='stacks_in_125_page0' class='stacks_in stack_stack'><div id='stacks_out_121_page0' class='stacks_out'><div id='stacks_in_121_page0' class='stacks_in com_yourhead_stack_header_stack'><h3>Sponsors</h3></div></div><div id='stacks_out_127_page0' class='stacks_out'><div id='stacks_in_127_page0' class='stacks_in image_stack'>
+<div class='centered_image' >
+    <img class='imageStyle' src='files/stacks-image-64966e3-1198x212.png' alt='Stacks Image 128' />
+</div>
+
+</div></div></div></div></div></div>
+
+				</div>
+				<div class="sidebar col-sm-4 order-md-8" data-aos="fade-up">
+					<div class="logo" data-aos-delay="450" data-aos-duration="500">
+						<img src="rw_common/images/andrew-cut-2017.png" width="269" height="349" alt="Andrew T. Campbell"/>
+                    </div>
+
+                    <div class="mt-5">
+                        <h3 class="sidebar-title">
+                            What's new
+                        </h3>
+                        Keynote address on Future of Mental Health Sensing on College Campuses, HotMobile, 2018. <br /><br />Dr. Rui Wang graduated and now works at Facebook. Rui's thesis on Mental Health Sensing is brilliant work (I'm baised), 2018. <br /><br />New NSF grant: Sensor-Based Assessment of Behavioral Lifestyles and Experiences, 2018. <br /><br />New NIMH on Effort-based Decision Making and Motivated Behavior in Everyday Life. 2018. <br /><br />Teaching a new seminar in applications of data science, 2018. <br /><br />Completed 3 marathons this year brings me to 13, 2018. <br /><br />Dartmouth Computer Scientist at Forefront of Sensing Revolution, Valley News, 2017. <br /><br />New NIMH grant: Mobile RDoC: Using Smartphone Technology to Understand Auditory Verbal Hallucination, 2016. <br /><br />New NIMH grant: Functional Anatomic Studies of Self-Affect: A Multimodal Approach, 2016. <br /><br />New IAPRA grant: Comprehensive Modeling for Job Performance via Sensing, 2016.
+                        
+                    </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col" data-aos="fade-right" data-aos-delay="0" data-aos-duration="500">
+						<div class="footer-content text-center">
+							Thanks for dropping feel free to  <a href="#" id="rw_email_contact">contact me</a><script type="text/javascript">var _rwObsfuscatedHref0 = "mai";var _rwObsfuscatedHref1 = "lto";var _rwObsfuscatedHref2 = ":an";var _rwObsfuscatedHref3 = "dre";var _rwObsfuscatedHref4 = "wtp";var _rwObsfuscatedHref5 = "cam";var _rwObsfuscatedHref6 = "pbe";var _rwObsfuscatedHref7 = "ll@";var _rwObsfuscatedHref8 = "gma";var _rwObsfuscatedHref9 = "il.";var _rwObsfuscatedHref10 = "com";var _rwObsfuscatedHref = _rwObsfuscatedHref0+_rwObsfuscatedHref1+_rwObsfuscatedHref2+_rwObsfuscatedHref3+_rwObsfuscatedHref4+_rwObsfuscatedHref5+_rwObsfuscatedHref6+_rwObsfuscatedHref7+_rwObsfuscatedHref8+_rwObsfuscatedHref9+_rwObsfuscatedHref10; document.getElementById("rw_email_contact").href = _rwObsfuscatedHref;</script>
+                        </div>
+
+						<ul class="navbar-nav mr-auto"><li class="nav-item active"><a href="./" rel="" class="nav-link">Home</a></li><li class="nav-item"><a href="page-6/" rel="" class="nav-link">Awards</a></li><li class="nav-item"><a href="page-5/" rel="" class="nav-link">Teaching</a></li><li class="nav-item"><a href="page-4/" rel="" class="nav-link">Students</a></li><li class="nav-item"><a href="page-7/" rel="" class="nav-link">Talks</a></li><li class="nav-item"><a href="page-8/" rel="" class="nav-link">Funding</a></li><li class="nav-item"><a href="page-3/" rel="" class="nav-link">Research</a></li><li class="nav-item"><a href="page/" rel="" class="nav-link">Publications</a></li><li class="nav-item"><a href="page-2/" rel="" class="nav-link">News</a></li></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script type="text/javascript" src="rw_common/themes/Mountains/js/main.js?rwcache=561862933"></script>
+</body>
+
+</html>
