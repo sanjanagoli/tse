@@ -28,49 +28,60 @@ bool pagefetcher(webpage_t *page);
 void pagesaver(webpage_t *page, int id, char *pathname);
 void pagescanner(webpage_t *page, hashtable_t *seenUrls, bag_t *toCrawl);
 inline static void logr(const char *word, const int depth, const char *url);
+void deletePage(void *item);
+void deleteURL(void *item);
 
 
 int 
 main(int argc, char *argv[])
 {
 	if (argc == 4) {
-		
-		int length = strlen(argv[2]);
+
 
 		//converts input to integer
 		int maxDepth = atoi(argv[3]);
 
-		//have to have an unchanged copy of the pathname
-		// char path[strlen(argv[2]+1)];
-		// strcpy(path, argv[2]);
 
-		char *pathname = argv[2];
-		char *url = argv[1];
+		char *pathname = (char *)malloc((1+strlen(argv[2]))*sizeof(char));
+
+		strcpy(pathname, argv[2]);
+
+		// char *pathname = argv[2];
+
+		char *url = (char *)malloc((1+strlen(argv[1]))*sizeof(char));
+		strcpy(url, argv[1]);
 
 		//have to normalize url before checking if it is internal below
 		NormalizeURL(url);
 
 
-		char *filename = argv[2];
+		char *filename = (char *)malloc(17+(strlen(argv[2]))*sizeof(char));
+		strcpy(filename, argv[2]);
 		strcat(filename, "/crawler.crawler");
+		//printf("this is filename: %s \n", filename);
 		
 
 		//checks if input is valid
-		if (fopen(filename, "w") != NULL) {
-			if (IsInternalURL(url) == false|| !(maxDepth >= 1 && maxDepth <= 10)) {
+		FILE *fp;
+		if ( (fp = fopen(filename, "w")) != NULL) {
+			if (IsInternalURL(url) == false|| !(maxDepth >= 0 && maxDepth <= 10)) {
 				fprintf(stderr, "URL must be an internal URL and maxdepth must be between 1-10. \n");
 				return 1;
 			}
-
+			fclose(fp);
 		} else {
-			//fclose(filename);
+			
 			fprintf(stderr, "Directory does not exist!\n");
 			return 1;
 		}
 
-		pathname[length] = '\0';
-		printf("printing argv[2] %s ", pathname);
+		//pathname[length] = '\0';
+		//printf("printing argv[2] %s \n", argv[2]);
 		crawler(url, pathname, maxDepth);
+
+		free(pathname);
+		free(filename);
+
 
 	//is not valid usage of program
 	} else {
@@ -117,11 +128,18 @@ crawler(char *url, char *pathname, int maxDepth)
 
 		if (webpage_getDepth(page) < maxDepth) {
 			pagescanner(page, seenUrls, toCrawl);
-
+		} else {
+			printf("deleting page with this url %s \n", webpage_getURL(page));
+			
 		}
+		webpage_delete(page);
 
 	}
 
+	//need to free up space allocated to bag and hashtable
+	bag_delete(toCrawl, deletePage);
+	hashtable_delete(seenUrls, deleteURL);
+	
 
 }
 
@@ -147,10 +165,20 @@ pagesaver(webpage_t *page, int id, char *pathname)
 {
 	//digits taken from https://stackoverflow.com/questions/3068397/finding-the-length-of-an-integer-in-c
 	int digits = floor(log10(abs(id))) + 1;
-	char filename[digits + strlen(pathname)];
+	char strId[digits];
 
-	//saves whatever would be printed to the char pointer filename
-	sprintf(filename, "%s/%d", pathname, id);
+	sprintf(strId, "%d", id);
+	//printf("string id: %s\n", strId);
+
+	char *filename = (char *)malloc((strlen(pathname)+digits+2)*sizeof(char));
+	//char filename[digits + strlen(pathname)];
+
+	//creates filename in formation of directory/id
+	strcpy(filename, pathname);
+	strcat(filename, "/");
+	strcat(filename, strId);
+
+	
 	//printf("filename: %s \n", filename);
 
 
@@ -168,7 +196,7 @@ pagesaver(webpage_t *page, int id, char *pathname)
 		fprintf(stderr, "Error: program could not write to new file in directory");
 		exit(1);
 	}
-		
+	free(filename);		
 }
 
 void
@@ -188,13 +216,23 @@ pagescanner(webpage_t *page, hashtable_t *seenUrls, bag_t *toCrawl)
 				if (hashtable_insert(seenUrls, result, " ")) {
 					webpage_t *nextPage = webpage_new(result, webpage_getDepth(page)+1, NULL);
 					bag_insert(toCrawl, nextPage);
+				} else {
+					logr("IgnDupl", webpage_getDepth(page), result);
+
+					//need to free the result if url is not being used for a webpage
+					free(result);
 				}
 			} else {
 				logr("IgnExtrn", webpage_getDepth(page), result);
+
+				//need to free the result if url is not being used for a webpage
+				free(result);
 			}
 			
-			//free(result);
+			
   		}
+  		//printf("deleting page with this url in scanner %s \n", webpage_getURL(page));
+  		//webpage_delete(page);
 	}
 }
 
@@ -203,6 +241,16 @@ inline static void logr(const char *word, const int depth, const char *url)
   printf("%2d %s%9s: %s\n", depth, "", word, url);
 }
 
+void deletePage(void *item)
+{
+  if (item != NULL) {
+    webpage_delete(item);
+  }
+}
+
+/* need empty method to handle the empty string items passed into hashtable's value
+   do not need to free the string because it was not allocated with malloc/calloc */
+void deleteURL(void *item) {}
 
 
 
