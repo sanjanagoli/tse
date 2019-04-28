@@ -12,8 +12,10 @@
 *		- url
 *		- depth
 *		- html
+*	Progress indicators that show the caller if the URL was fetched, scanned, found, etc.
 *
-* Description: Program crawls the web starting at the specified URL and searches through the page's next URLs 
+* Description: Program crawls the web starting at the specified URL and searches through the page's next URLs
+			   based on specified depth. Needs to check if the URL is valid (internal) and searches accordingly. 
 * 			   Part 1 of 3 for Tiny Search Engine
 *			   
 */
@@ -44,6 +46,7 @@ main(int argc, char *argv[])
 		//converts input to integer
 		int maxDepth = atoi(argv[3]);
 
+		//need to make copy of arguments (can't use them directly)
 		char *filename = (char *)malloc(10+(strlen(argv[2]))*sizeof(char));
 		strcpy(filename, argv[2]);
 		strcat(filename, "/.crawler");
@@ -79,9 +82,9 @@ main(int argc, char *argv[])
 			return 1;
 		}
 
-
 		crawler(url, pathname, maxDepth);
 
+		//after crawler is invoked free memory accordingly
 		free(pathname);
 		free(filename);
 
@@ -92,6 +95,14 @@ main(int argc, char *argv[])
 		return 1;
 	}
 }
+
+/*****************crawler**************************/
+/* Performs the primary functionality of the program:
+*	1. Extracts a webpage from the bag (continue until there are no more pages)
+*	2. Use savepage from pagedir.c to store the HTML for the webpage
+*	3. If the depth of the page is less than the maxDepth, invoke pagescanner
+*	4. At the end of the loop, free all the variables that were allocated through malloc/calloc
+*/
 
 void
 crawler(char *url, char *pathname, int maxDepth)
@@ -113,7 +124,7 @@ crawler(char *url, char *pathname, int maxDepth)
 		fprintf(stderr, "Error: seed is null");
 	}
 
-
+	//insert to the initial into the bag and hashtable to extract below
 	bag_insert(toCrawl, seed);
 	hashtable_insert(seenUrls, url, " ");
 
@@ -127,11 +138,12 @@ crawler(char *url, char *pathname, int maxDepth)
 			//need to increment after saving page so that each page has unique id in directory
 			id++;
 
-
+			//if there is still more depth to search continue scanning
 			if (webpage_getDepth(page) < maxDepth) {
 				pagescanner(page, seenUrls, toCrawl);
 			} 
 		}
+		//need to free up allocated webpage
 		webpage_delete(page);
 
 	}
@@ -143,9 +155,16 @@ crawler(char *url, char *pathname, int maxDepth)
 
 }
 
+/*****************pagefetcher**************************/
+/* Pagefetcher uses the webpage_fetch method from webpage.c
+*  If the webpage has not been fetched, delete the allocated variables
+*  If the webpage has been fetched, save and scan the page, then delete
+*/
+
 bool
 pagefetcher(webpage_t *page)
 {
+
 	if(webpage_fetch(page) == false) {
 		fprintf(stderr, "The webpage was not fetched. \n");
 		return false;
@@ -155,22 +174,29 @@ pagefetcher(webpage_t *page)
 	}	
 }
 
+/********************pagescanner**************************/
+/* Pagefetcher uses the webpage_getNextURL method from webpage.c
+*  As long as the bag has more webpages to scan, continue searching 
+*  through the page to find URLs that link to other pages and add to bag and hashtable
+*  Caller: only call if depth of page is less than maxDepth (passed in)
+*/
 
 void
 pagescanner(webpage_t *page, hashtable_t *seenUrls, bag_t *toCrawl)
 {
 	logr("Scanning", webpage_getDepth(page), webpage_getURL(page));
 
+	//obtaining each URL in the webpage
 	int pos = 0;
 	char *result;
 
 	if(page != NULL) {
+		//as long as there are more URLs that link to other pages
 		while ((result = webpage_getNextURL(page, &pos)) != NULL) {
-			
-			//NormalizeURL(result);
 			logr("Found", webpage_getDepth(page), result);
 			if (IsInternalURL(result)) {
 				if (hashtable_insert(seenUrls, result, " ")) {
+					//need to insert each page to bag in order to search later
 					webpage_t *nextPage = webpage_new(result, webpage_getDepth(page)+1, NULL);
 					bag_insert(toCrawl, nextPage);
 				} else {
@@ -189,6 +215,8 @@ pagescanner(webpage_t *page, hashtable_t *seenUrls, bag_t *toCrawl)
 	}
 }
 
+
+/*logr: prints status updates to the caller*/
 inline static void logr(const char *word, const int depth, const char *url)
 {
   printf("%2d %s%9s: %s\n", depth, "", word, url);
