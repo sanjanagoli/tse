@@ -2,8 +2,6 @@
 
 ## Detailed pseudo code for each of the objects/components/functions
 
-### Pseudocode for crawler.c methods
-
 	1. Initialize moduels - `bag`, `hashtable`, `webpage` (with `seedURL`)
 	2. Extract a `webpage` from the `bag` (continue until no more pages)
 	3. Use `pagefetcher` to fetch the HTML for the corresponding URL
@@ -21,9 +19,9 @@
 		c. Free URL if it was not added to to the hashtable
 	6. At the end of the loop, need to free the `webpage` that was allocated; after the loop, free the `bag` and `hashtable` passing in the `deletePage` and `deleteURL` functions respectively
 
-### Function prototypes and their parameters
+## Function prototypes and their parameters
 
-#### crawler.c
+### crawler.c
 ```c
 void crawler(char *url, char *pathname, int maxDepth);
 bool pagefetcher(webpage_t *page);
@@ -45,7 +43,7 @@ void deleteURL(void *item);
 
 `deleteURL`: placeholder method (does not have any functionality)
 
-#### pagedir.c
+### pagedir.c
 
 ```c
 bool check_directory(char *filename);
@@ -56,7 +54,7 @@ void savepage(webpage_t *page, int id, char *pathname);
 
 `savepage`: If the directory exists, print the URL, page depth, and HTML to a file named by id and put in specified directory
 
-### Data structures
+## Data structures
 
 `hashtable`: 
 A `hashtable` is maintains sets of (_key_, _item_) pairs. _Keys_ are unique (can only appear once in a `set`). 
@@ -78,11 +76,11 @@ This module defines the opaque `webpage_t` type, and a suite of functions for cr
  * the depth at which the crawler found this page
  * the HTML for the page - may be NULL. 
 
-### Security and privacy properties
+## Security and privacy properties
 
 Program only performs the functions if the URL is internal (the URL stays within the CS50 playground `http://old-www.cs.dartmouth.edu/`)
 
-### Error handling and recovery
+## Error handling and recovery
 
 1. Testing program handles for boundary cases including: 
 	- invalid parameters (too low or high depth, nonexistent URL, non-internal URL)
