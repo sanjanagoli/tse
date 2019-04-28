@@ -1,10 +1,11 @@
-# Your name
+# Sanjana Goli
 ## CS50 Spring 2019, Tiny Search Engine
 
-GitHub username:
+GitHub username: sanjanagoli
 
 To build, run `make`.
 
 To clean up, run `make clean`.
 
-*Please replace this text with any comments you have about the overall assignment.  Please supply a README for each subdirectory..*
+*Details of implementation are included in IMPLEMENTATION.md in crawler directory*  
+*common directory includes `pagedir.c` and `pagedir.h` that hold a library of functions used for `crawler.c`*
