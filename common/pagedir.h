@@ -17,6 +17,6 @@
 bool check_directory(char *filename);
 
 
+/*  savepage method designed to write to file in specified directory;
+  	assumption: none of the filenames in directory are integers  */
 void savepage(webpage_t *page, int id, char *pathname);
-
-void test_method();

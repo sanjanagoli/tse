@@ -15,7 +15,6 @@
 
 bool check_directory(char *filename);
 void savepage(webpage_t *page, int id, char *pathname);
-void test_method();
 
 /* check_directory: takes in string filename, returns
 					whether directory exists */
@@ -67,10 +66,4 @@ savepage(webpage_t *page, int id, char *pathname)
 		exit(1);
 	}
 	free(filename);		
-}
-
-void
-test_method()
-{
-	printf("happy that this works");
 }
