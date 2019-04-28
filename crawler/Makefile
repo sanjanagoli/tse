@@ -23,7 +23,7 @@ crawler.o: $L/hashtable.h $L/file.h $L/webpage.h $(LL)/pagedir.h
 .PHONY: all clean
 
 test: 
-	./testing.sh
+	bash -v testing.sh
 
 
 removeTestFiles: 

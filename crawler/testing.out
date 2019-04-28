@@ -1,3 +1,4 @@
+bash -v testing.sh
 #!/bin/bash
 # testing.sh - testing for crawler.c
 # Sanjana Goli, April 2019
@@ -16,7 +17,9 @@
 
 # need to remove files between test runs because assuming no files with integer names upon run
 make removeTestFiles
+make[1]: Entering directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 rm -rf testDir/*
+make[1]: Leaving directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 
 ./crawler http://old-www.cs.dartmouth.edu/~campbell/index.html testDir 1
  0   Fetched: http://old-www.cs.dartmouth.edu/~campbell/index.html
@@ -83,7 +86,9 @@ rm -rf testDir/*
  1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/
 
 make removeTestFiles
+make[1]: Entering directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 rm -rf testDir/*
+make[1]: Leaving directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 
 ./crawler http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/index.html testDir 1
  0   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/index.html
@@ -102,7 +107,9 @@ rm -rf testDir/*
  1   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Computer_science.html
 
 make removeTestFiles
+make[1]: Entering directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 rm -rf testDir/*
+make[1]: Leaving directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 
 # example with depth 2
 ./crawler http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html testDir 2
@@ -119,14 +126,18 @@ rm -rf testDir/*
  2   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/B.html
 
 make removeTestFiles
+make[1]: Entering directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 rm -rf testDir/*
+make[1]: Leaving directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 
 # example with depth 0
 ./crawler http://old-www.cs.dartmouth.edu/~campbell/index.html testDir 0
  0   Fetched: http://old-www.cs.dartmouth.edu/~campbell/index.html
 
 make removeTestFiles
+make[1]: Entering directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 rm -rf testDir/*
+make[1]: Leaving directory `/home/vagrant/cs50-dev/tse-sanjanagoli/crawler'
 
 # BOUNDARY CASES 
 
@@ -157,3 +168,48 @@ The webpage was not fetched.
 # extra arguments
 ./crawler http://old-www.cs.dartmouth.edu/~campbell/index.html testDir 0 extraargument
 usage: ./crawler seedURL pageDirectory maxDepth 
+
+# Normal case
+./crawler http://old-www.cs.dartmouth.edu/~campbell/page-4/ testDir 1
+ 0   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0  Scanning: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-6/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-5/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/./
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-7/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-8/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-2/
+ 0     Found: https://www.cs.dartmouth.edu/~kmasaba/
+ 0  IgnExtrn: https://www.cs.dartmouth.edu/~kmasaba/
+ 0     Found: https://www.cs.dartmouth.edu/~we-wang/
+ 0  IgnExtrn: https://www.cs.dartmouth.edu/~we-wang/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-6/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-5/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/./
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-7/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-8/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-3/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-2/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/

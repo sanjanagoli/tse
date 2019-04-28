@@ -53,3 +53,6 @@ make removeTestFiles
 
 # extra arguments
 ./crawler http://old-www.cs.dartmouth.edu/~campbell/index.html testDir 0 extraargument
+
+# Normal case
+./crawler http://old-www.cs.dartmouth.edu/~campbell/page-4/ testDir 1
