@@ -83,7 +83,6 @@ This module defines the opaque `webpage_t` type, and a suite of functions for cr
 
 Program only performs the functions if the URL is internal (the URL stays within the CS50 playground `http://old-www.cs.dartmouth.edu/`)
 
-
 ### Error handling and recovery
 
 1. Testing program handles for boundary cases including: 
