@@ -1,5 +1,4 @@
-# Implementation
-## CS50 Spring 2019, Tiny Search Engine
+# Implementation - Tiny Search Engine
 
 ## Detailed pseudo code for each of the objects/components/functions
 
