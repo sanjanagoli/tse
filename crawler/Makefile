@@ -3,14 +3,14 @@
 # Sanjana Goli, April 2019
 
 L = ../libcs50
-# LL = ../common
+LL = ../common
 
 PROG = crawler
 OBJS = crawler.o
 LIBS = -lm
-LLIBS = $L/libcs50-given.a
+LLIBS = $L/libcs50.a $(LL)/common.a
 
-CFLAGS = -Wall -pedantic -std=c11 -ggdb -I$L
+CFLAGS = -Wall -pedantic -std=c11 -ggdb -I$L -I$(LL)
 CC = gcc
 
 all: $(PROG)
@@ -18,15 +18,16 @@ all: $(PROG)
 $(PROG): $(OBJS) $(LLIBS)
 	$(CC) $(CFLAGS) $(OBJS) $(LLIBS) $(LIBS) -o $(PROG)
 
-crawler.o: $L/hashtable.h $L/file.h $L/webpage.h #$LL/pagedir.h
+crawler.o: $L/hashtable.h $L/file.h $L/webpage.h $(LL)/pagedir.h
 
 .PHONY: all clean
 
-# test: $(PROG)
-# 	./$(PROG)
+test: 
+	./testing.sh
 
-# valgrind: $(PROG)
-# 	valgrind ./$(PROG)
+
+removeTestFiles: 
+	rm -rf testDir/*
 
 clean:
 	rm -rf *.dSYM  # MacOS debugger info

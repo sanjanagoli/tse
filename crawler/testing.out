@@ -1,0 +1,159 @@
+#!/bin/bash
+# testing.sh - testing for crawler.c
+# Sanjana Goli, April 2019
+# 
+#
+# Description: Testing normal and boundary cases for program (invalid parameters -- non-internal URL, too many args, incorrect depth, etc)
+
+
+# examples given on lecture demonstration
+
+./crawler http://old-www.cs.dartmouth.edu/~cs50/index.html testDir 1
+ 0   Fetched: http://old-www.cs.dartmouth.edu/~cs50/index.html
+ 0  Scanning: http://old-www.cs.dartmouth.edu/~cs50/index.html
+ 0     Found: https://www.cs.dartmouth.edu/~cs50/
+ 0  IgnExtrn: https://www.cs.dartmouth.edu/~cs50/
+
+# need to remove files between test runs because assuming no files with integer names upon run
+make removeTestFiles
+rm -rf testDir/*
+
+./crawler http://old-www.cs.dartmouth.edu/~campbell/index.html testDir 1
+ 0   Fetched: http://old-www.cs.dartmouth.edu/~campbell/index.html
+ 0  Scanning: http://old-www.cs.dartmouth.edu/~campbell/index.html
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/./
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 0     Found: http://dartnets.cs.dartmouth.edu/
+ 0  IgnExtrn: http://dartnets.cs.dartmouth.edu/
+ 0     Found: http://studentlife.cs.dartmouth.edu/
+ 0  IgnExtrn: http://studentlife.cs.dartmouth.edu/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0     Found: https://scholar.google.com/citations?user=rthco5oAAAAJ&hl=en
+ 0  IgnExtrn: https://scholar.google.com/citations?user=rthco5oAAAAJ&hl=en
+ 0     Found: http://studentlife.cs.dartmouth.edu/
+ 0  IgnExtrn: http://studentlife.cs.dartmouth.edu/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0     Found: https://scholar.google.com/citations?user=rthco5oAAAAJ&hl=en
+ 0  IgnExtrn: https://scholar.google.com/citations?user=rthco5oAAAAJ&hl=en
+ 0     Found: https://goo.gl/maps/GEbhZkhe7Z72
+ 0  IgnExtrn: https://goo.gl/maps/GEbhZkhe7Z72
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/./
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/
+
+make removeTestFiles
+rm -rf testDir/*
+
+./crawler http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/index.html testDir 1
+ 0   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/index.html
+ 0  Scanning: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/index.html
+ 0     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Computer_science.html
+ 0     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/C_(programming_language).html
+ 0     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Unix.html
+ 0     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Dartmouth_College.html
+ 0     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Hash_table.html
+ 0     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Linked_list.html
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Linked_list.html
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Hash_table.html
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Dartmouth_College.html
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Unix.html
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/C_(programming_language).html
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/wiki/Computer_science.html
+
+make removeTestFiles
+rm -rf testDir/*
+
+# example with depth 2
+./crawler http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html testDir 2
+ 0   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+ 0  Scanning: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+ 0     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+ 1  Scanning: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+ 1     Found: https://en.wikipedia.org/wiki/Algorithm
+ 1  IgnExtrn: https://en.wikipedia.org/wiki/Algorithm
+ 1     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/B.html
+ 1     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+ 1   IgnDupl: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+ 2   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/B.html
+
+make removeTestFiles
+rm -rf testDir/*
+
+# example with depth 0
+./crawler http://old-www.cs.dartmouth.edu/~campbell/index.html testDir 0
+ 0   Fetched: http://old-www.cs.dartmouth.edu/~campbell/index.html
+
+make removeTestFiles
+rm -rf testDir/*
+
+# BOUNDARY CASES 
+
+# directory that does not exist
+./crawler http://old-www.cs.dartmouth.edu/~cs50/index.html doesnotexist 1
+Directory does not exist!
+
+# max depth is less than 0
+./crawler http://old-www.cs.dartmouth.edu/~cs50/index.html testDir -1
+URL must be an internal URL and maxdepth must be between 1-10. 
+
+# max depth is greater than 10
+./crawler http://old-www.cs.dartmouth.edu/~cs50/index.html testDir 11
+URL must be an internal URL and maxdepth must be between 1-10. 
+
+# URL is not internal
+./crawler http://wikipedia.com testDir 1
+URL must be an internal URL and maxdepth must be between 1-10. 
+
+# seedURL that points to a non-existent server.
+./crawler abcdef testDir 1
+URL must be an internal URL and maxdepth must be between 1-10. 
+
+# seedURL that points to a valid server but non-existent page
+./crawler http://old-www.cs.dartmouth.edu/~campbell/indexes.html testDir 1
+The webpage was not fetched. 
+
+# extra arguments
+./crawler http://old-www.cs.dartmouth.edu/~campbell/index.html testDir 0 extraargument
+usage: ./crawler seedURL pageDirectory maxDepth 
