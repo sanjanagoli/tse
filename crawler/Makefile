@@ -25,6 +25,9 @@ crawler.o: $L/hashtable.h $L/file.h $L/webpage.h $(LL)/pagedir.h
 test: 
 	bash -v testing.sh
 
+valgrind:
+	valgrind bash -v testing.sh
+
 removeTestFiles: 
 	rm -rf testDir/*
 
