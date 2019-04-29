@@ -19,13 +19,8 @@ pagedir.o: $L/webpage.h pagedir.h
 
 .PHONY: all clean
 
-# test: $(PROG)
-# 	./$(PROG)
-
-# valgrind: $(PROG)
-# 	valgrind ./$(PROG)
-
 clean:
 	rm -rf *.dSYM  # MacOS debugger info
 	rm -f *~ *.o
+	rm -f *~ *.a
 	rm -f $(LIB)
