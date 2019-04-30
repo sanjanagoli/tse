@@ -41,6 +41,7 @@ webpage.o:  webpage.h
 .PHONY: clean sourcelist
 
 # list all the sources and docs in this directory.
+# (this rule is used only by the Professor in preparing the starter kit)
 sourcelist: Makefile *.md *.c *.h
 	@echo $^
 
