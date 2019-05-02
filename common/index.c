@@ -10,10 +10,12 @@
 #include <stdbool.h>
 #include "webpage.h"
 #include <string.h>
+#include <ctype.h>
 #include "hashtable.h"
 #include "pagedir.h"
 #include "file.h"
 #include "counters.h"
+#include "word.h"
 #include "index.h"
 
 typedef struct index {
@@ -39,6 +41,7 @@ index_insert_word(index_t *index, const char *word, int pageId)
 	
 	if (!hashtable_find(index->hashtable, word)) {
 		counters_t *ctr = counters_new();
+		counters_add(ctr, pageId);
 		if (!hashtable_insert(index->hashtable, word, ctr) ) {
 			free(ctr);
 		}
@@ -69,9 +72,8 @@ index_build(char *directory, index_t *index)
 
     	//create webpage from url at the top --> need to use webpage_getNextWord
     	char *url = malloc(250*sizeof(char));
-    	fgets(url, 150, fp);
+    	fgets(url, 250, fp);
     	webpage_t *page = webpage_new(url, 0, NULL);
-    	printf("%s\n", url);
 
     	if (webpage_fetch(page)) {
     		printf("HTML was fetched");
@@ -84,32 +86,84 @@ index_build(char *directory, index_t *index)
   		char *result;
  
 		while ((result = webpage_getNextWord(page, &pos)) != NULL) {
-		   printf("Found word: %s\n", result);
+			char *str = (char *)malloc(sizeof(char)*(strlen(result)+1)); 
+		   	str = NormalizeWord(result);
+		   	free(result);
+		   	//printf("result %s\n", str);
 
 		   //calls method above which increments counter of word based on corresponding id
-		   index_insert_word(index, result, id);
-		   
+		    if(strlen(str) > 3) {
+		   		index_insert_word(index, str, id);
+		    }
 		}	
 
-
     	//need to free filename that was previously malloc and create new path
+
+		printf("done");
     	id++;
     	free(filename);
     	fclose(fp);
 
 
     	filename = createFilename(id, directory);
- 
     }
-    
+}
 
+void
+index_save(char *filename, index_t *index)
+{
+	FILE *fp;
+	if ((fp = fopen(filename, "w")) != NULL) {
+		hashtable_iterate(index->hashtable, fp, print_word_counter);
+
+	} else {
+		fprintf(stderr, "Error: File %s could not be opened!", filename);
+		exit(1);
+	}
+
+	fclose(fp);
+
+}
+
+void 
+print_word_counter(void *arg, const char *key, void *item)
+{
+	FILE *fp = arg;
+	if ((key != NULL) && (item != NULL)) {
+		fprintf(fp, "%s ", key);
+		counters_t *counter = item;
+
+		//printing each counternode in format specified
+		counters_iterate(counter, fp, print_count_helper);
+		fprintf(fp, "\n");
+	}
+}
+
+void
+print_count_helper(void *arg, const int key, const int count)
+{
+	FILE *fp = arg;
+	fprintf(fp, "%d %d ", key, count);
 
 }
 
 void
-index_save(char *filename, index_t index)
+index_print(index_t *index)
 {
+	hashtable_print(index->hashtable, stdout, printItems);
+}
 
+void 
+printItems(FILE *fp, const char *key, void *item)
+{
+ 
+  char *name = item; 
+  if (name == NULL) {
+    fprintf(fp, "(null)");
+  }
+  else {
+    fprintf(fp, "(%s, %s)", key, name); 
+  }
 }
 
 /* createFilename creates filename of format dirname/id 
