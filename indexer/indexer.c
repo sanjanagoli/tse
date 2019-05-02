@@ -29,6 +29,7 @@ main(int argc, char *argv[])
 		if (isCrawlerDirectory(directory)) {
 			index_t *index = index_new();
 			index_build(directory, index);
+			index_save(indexFilename, index);
 			printf("ayyaya\n");
 		}
 
