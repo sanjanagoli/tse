@@ -15,7 +15,8 @@
 char * 
 NormalizeWord(char *word)
 {
-	char *temp = (char *)malloc(strlen(word)+1);
+	char *temp = (char *)malloc((strlen(word)+1)*sizeof(char));
+	strcpy(temp, word);
 	for (char *ptr = word; *ptr != '\0'; ptr++) {
 	    temp[ptr - word] = tolower(*ptr);
 	}

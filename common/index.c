@@ -23,11 +23,11 @@ typedef struct index {
 } index_t;
 
 index_t *
-index_new()
+index_new(int num_slots)
 {
   	index_t *index = malloc(sizeof(index_t));
   	if (index != NULL) {
-  		index->hashtable = hashtable_new(250);
+  		index->hashtable = hashtable_new(num_slots);
   		return index;
   	} else {
   		return NULL;
@@ -38,24 +38,54 @@ void
 index_insert_word(index_t *index, const char *word, int pageId)
 {	
 	//each word needs a counterset --> key: pageID, val: count of the word in the page
-	
-	if (!hashtable_find(index->hashtable, word)) {
-		counters_t *ctr = counters_new();
-		counters_add(ctr, pageId);
-		if (!hashtable_insert(index->hashtable, word, ctr) ) {
-			free(ctr);
+	if ((word != NULL) && (pageId > 0)) {
+		if (!hashtable_find(index->hashtable, word)) {
+			counters_t *ctr = counters_new();
+			counters_add(ctr, pageId);
+			if (!hashtable_insert(index->hashtable, word, ctr) ) {
+				free(ctr);
+			}
+		} else {
+			counters_t *counter = hashtable_find(index->hashtable, word);
+			counters_add(counter, pageId);
 		}
 	} else {
-		counters_t *counter = hashtable_find(index->hashtable, word);
-		counters_add(counter, pageId);
+		fprintf(stderr, "Error: ");
 	}
-
 }
 
 void
-index_delete(index_t index)
-{
+index_set_wordcount(index_t *index, const char *word, int pageId, int countVal)
+{	
+	if ((word != NULL) && (pageId > 0)) {
+		if (!hashtable_find(index->hashtable, word)) {
+			counters_t *ctr = counters_new();
+			counters_add(ctr, pageId);
+			if (!hashtable_insert(index->hashtable, word, ctr) ) {
+				free(ctr);
+			}
+		} else {
+			counters_t *counter = hashtable_find(index->hashtable, word);
+			counters_set(counter, pageId, countVal);
+		}
+	} else {
+		fprintf(stderr, "Error: ");
+	}
+}
 
+void
+index_delete(index_t *index)
+{
+	hashtable_delete(index->hashtable, delete_helper);
+}
+
+void
+delete_helper(void *item)
+{
+	if (item != NULL) {
+		counters_t *ctr = item;
+		counters_delete(ctr);
+	}
 }
 
 void
@@ -99,14 +129,15 @@ index_build(char *directory, index_t *index)
 
     	//need to free filename that was previously malloc and create new path
 
-		printf("done");
     	id++;
     	free(filename);
+    	free(page);
     	fclose(fp);
 
 
     	filename = createFilename(id, directory);
     }
+    free(filename);
 }
 
 void
@@ -147,23 +178,59 @@ print_count_helper(void *arg, const int key, const int count)
 
 }
 
-void
-index_print(index_t *index)
-{
-	hashtable_print(index->hashtable, stdout, printItems);
+int
+get_num_lines(char *filename)
+{	
+	FILE *fp;
+	int returnVal;
+	if ((fp = fopen(filename, "w")) != NULL) {
+		returnVal = lines_in_file(fp);
+		fclose(fp);
+	} else {
+		//if file doesn't exist
+		returnVal = -1;
+	}
+	return returnVal;
 }
 
-void 
-printItems(FILE *fp, const char *key, void *item)
+void
+index_load(char *filename, index_t *index)
 {
- 
-  char *name = item; 
-  if (name == NULL) {
-    fprintf(fp, "(null)");
-  }
-  else {
-    fprintf(fp, "(%s, %s)", key, name); 
-  }
+	//checks if the file exists
+	FILE *fp;
+	if ((fp = fopen(filename, "r")) != NULL) {
+		char buf[100]; 
+		int key;
+		int val;
+
+		//do this so long as there are more lines in the file
+		int numLines = lines_in_file(fp);
+    	while (numLines > 0) {
+
+    		//read the first word
+    		if (fscanf(fp,"%s ",buf)==1) {
+    			printf("%s", buf);
+    			//iterate through the numbers on the rest of the line
+    			while (fscanf(fp, "%d %d", &key, &val)==2) {
+    				// if (fscanf(fp, "%d ", &val)==1) {
+    				// 	//only insert into index if there is a valid key, value pair
+    				// 	index_insert_word(index, buf, key);
+    				// }
+    				printf("%d %d ", key, val);
+    				//set the counter of the word to the specified value
+    				index_set_wordcount(index, buf, key, val);
+    			}
+    			printf("\n");
+    		}
+    		numLines--;
+    	}
+
+	} else {
+		fprintf(stderr, "Error: File %s could not be opened!", filename);
+		exit(1);
+	}
+
+	fclose(fp);
 }
 
 /* createFilename creates filename of format dirname/id 

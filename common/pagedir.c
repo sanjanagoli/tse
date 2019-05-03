@@ -15,6 +15,8 @@
 
 bool check_directory(char *filename);
 void savepage(webpage_t *page, int id, char *pathname);
+bool isCrawlerDirectory(char *directory);
+void openFile(int id, char *directoryName);
 
 /* check_directory: takes in string filename, returns
 					whether directory exists */
@@ -66,4 +68,44 @@ savepage(webpage_t *page, int id, char *pathname)
 		exit(1);
 	}
 	free(filename);		
+}
+
+bool
+isCrawlerDirectory(char *directory)
+{
+	//creates the pathname for the .crawler file
+	char *crawlerFileName = malloc((strlen(directory) + strlen("/.crawler") + 1)*sizeof(char));
+	strcpy(crawlerFileName, directory);
+	strcat(crawlerFileName, "/.crawler");
+
+	//need to put fopen in read mode so that it does not create a new file
+	FILE *file;
+    if ((file = fopen(crawlerFileName, "r")) != NULL){
+    	//close file if it exists in order to prevent memory leaks
+        fclose(file);
+        return true;
+    } else {
+    	fprintf(stderr, "Error: Directory %s does not exist", directory);
+    	return false;
+    }
+}
+
+void
+openFile(int id, char *directoryName)
+{
+	int digits = floor(log10(abs(id))) + 1;
+	char strId[digits];
+
+	sprintf(strId, "%d", id);
+
+	char *filename = (char *)malloc((strlen(directoryName)+digits+2)*sizeof(char));
+	strcpy(filename, directoryName);
+	strcat(filename, "/");
+	strcat(filename, strId);
+
+	FILE *fp;
+	if( (fp = fopen(filename, "r")) != NULL ) {
+
+	}
+
 }

@@ -18,21 +18,25 @@
 
 typedef struct index index_t;  // opaque to users of the module
 
-index_t * index_new();
+index_t * index_new(int num_slots);
 
 void index_insert_word(index_t *index, const char *word, int pageId);
 
+void index_set_wordcount(index_t *index, const char *word, int pageId, int countVal);
+
 void index_save(char *filename, index_t *index);
+
+int get_num_lines(char *filename);
 
 void print_word_counter(void *arg, const char *key, void *item);
 
 void print_count_helper(void *arg, const int key, const int count);
 
-void index_print(index_t *index);
+void index_load(char *filename, index_t *index);
 
-void printItems(FILE *fp, const char *key, void *item);
+void index_delete(index_t *index);
 
-void index_delete(index_t index);
+void delete_helper(void *item);
 
 void index_build(char *directory, index_t *index);
 
