@@ -60,7 +60,7 @@ index_set_wordcount(index_t *index, const char *word, int pageId, int countVal)
 	if ((word != NULL) && (pageId > 0)) {
 		if (!hashtable_find(index->hashtable, word)) {
 			counters_t *ctr = counters_new();
-			counters_add(ctr, pageId);
+			counters_set(ctr, pageId, countVal);
 			if (!hashtable_insert(index->hashtable, word, ctr) ) {
 				free(ctr);
 			}
@@ -77,6 +77,7 @@ void
 index_delete(index_t *index)
 {
 	hashtable_delete(index->hashtable, delete_helper);
+	free(index);
 }
 
 void
@@ -109,6 +110,9 @@ index_build(char *directory, index_t *index)
     		printf("HTML was fetched");
     	} else {
     		fprintf(stderr, "ERROR: HTML COULD NOT BE FETCHED");
+    		webpage_delete(page);
+    		free(filename);
+    		fclose(fp);
     		exit(1);
     	}
 
@@ -116,27 +120,26 @@ index_build(char *directory, index_t *index)
   		char *result;
  
 		while ((result = webpage_getNextWord(page, &pos)) != NULL) {
-			char *str = (char *)malloc(sizeof(char)*(strlen(result)+1)); 
-		   	str = NormalizeWord(result);
+			//char *str = (char *)malloc(sizeof(char)*(strlen(result)+1)); 
+			char *str = NormalizeWord(result);
 		   	free(result);
-		   	//printf("result %s\n", str);
 
 		   //calls method above which increments counter of word based on corresponding id
 		    if(strlen(str) > 3) {
 		   		index_insert_word(index, str, id);
 		    }
+		    free(str);
 		}	
 
     	//need to free filename that was previously malloc and create new path
-
     	id++;
     	free(filename);
-    	free(page);
+    	webpage_delete(page);
     	fclose(fp);
-
 
     	filename = createFilename(id, directory);
     }
+    
     free(filename);
 }
 
@@ -183,7 +186,7 @@ get_num_lines(char *filename)
 {	
 	FILE *fp;
 	int returnVal;
-	if ((fp = fopen(filename, "w")) != NULL) {
+	if ((fp = fopen(filename, "r")) != NULL) {
 		returnVal = lines_in_file(fp);
 		fclose(fp);
 	} else {

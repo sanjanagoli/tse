@@ -83,11 +83,15 @@ isCrawlerDirectory(char *directory)
     if ((file = fopen(crawlerFileName, "r")) != NULL){
     	//close file if it exists in order to prevent memory leaks
         fclose(file);
+        free(crawlerFileName);
         return true;
     } else {
     	fprintf(stderr, "Error: Directory %s does not exist", directory);
+    	free(crawlerFileName);
     	return false;
     }
+
+
 }
 
 void
