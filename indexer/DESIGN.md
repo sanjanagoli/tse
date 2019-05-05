@@ -79,3 +79,12 @@ And some helper modules that provide data structures:
 4. *hashtable* of words and *counters
 
 ## Testing Plan
+
+1. Test the programs with various forms of incorrect command-line arguments to ensure that its command-line parsing, and validation of those parameters, works correctly.
+
+2. Test the indexer with a file that was not created by crawler directory
+
+3. Test the indexer with data directory provided and several other crawler prgraom outputs
+
+4. Test the indextester with nonwritable newIndexFilename
+
