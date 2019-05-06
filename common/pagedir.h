@@ -25,4 +25,3 @@ void savepage(webpage_t *page, int id, char *pathname);
  *	by crawler */
 bool isCrawlerDirectory(char *directory);
 
-void openFile(int id, char *directoryName);

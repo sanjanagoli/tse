@@ -93,23 +93,3 @@ isCrawlerDirectory(char *directory)
 
 
 }
-
-void
-openFile(int id, char *directoryName)
-{
-	int digits = floor(log10(abs(id))) + 1;
-	char strId[digits];
-
-	sprintf(strId, "%d", id);
-
-	char *filename = (char *)malloc((strlen(directoryName)+digits+2)*sizeof(char));
-	strcpy(filename, directoryName);
-	strcat(filename, "/");
-	strcat(filename, strId);
-
-	FILE *fp;
-	if( (fp = fopen(filename, "r")) != NULL ) {
-
-	}
-
-}
