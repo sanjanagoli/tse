@@ -64,12 +64,14 @@ savepage(webpage_t *page, int id, char *pathname)
 		fclose(fp);
 	} else {
 		//exit if program cannot write to file
-		fprintf(stderr, "Error: program could not write to new file in directory");
+		fprintf(stderr, "Error: program could not write to new file in directory\n");
 		exit(1);
 	}
 	free(filename);		
 }
 
+/*  isCrawlerDirectory method checks whether the directory given was produced
+ *	by crawler */
 bool
 isCrawlerDirectory(char *directory)
 {
@@ -86,10 +88,8 @@ isCrawlerDirectory(char *directory)
         free(crawlerFileName);
         return true;
     } else {
-    	fprintf(stderr, "Error: Directory %s does not exist", directory);
+    	fprintf(stderr, "Error: Directory %s is not a directory produced by crawler program\n", directory);
     	free(crawlerFileName);
     	return false;
     }
-
-
 }

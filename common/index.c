@@ -58,7 +58,7 @@ index_insert_word(index_t *index, const char *word, int pageId)
 			counters_add(counter, pageId);
 		}
 	} else {
-		fprintf(stderr, "Error: pageId must be greater than 0 and word must be valid!");
+		fprintf(stderr, "Error: pageId must be greater than 0 and word must be valid!\n");
 	}
 }
 
@@ -82,7 +82,7 @@ index_set_wordcount(index_t *index, const char *word, int pageId, int countVal)
 			counters_set(counter, pageId, countVal);
 		}
 	} else {
-		fprintf(stderr, "Error: ");
+		fprintf(stderr, "Error: Error: pageId must be greater than 0 and word must be valid!\n");
 	}
 }
 
@@ -91,8 +91,10 @@ void
 index_delete(index_t *index)
 {
 	//frees all memory
-	hashtable_delete(index->hashtable, delete_helper);
-	free(index);
+	if(index != NULL) {
+		hashtable_delete(index->hashtable, delete_helper);
+		free(index);
+	}
 }
 
 /* see index.h for documentation */
@@ -128,7 +130,6 @@ index_build(char *directory, index_t *index)
   		char *result;
  
 		while ((result = webpage_getNextWord(page, &pos)) != NULL) {
-			//char *str = (char *)malloc(sizeof(char)*(strlen(result)+1)); 
 			char *str = NormalizeWord(result);
 		   	free(result);
 
@@ -164,7 +165,7 @@ index_save(char *filename, index_t *index)
 		hashtable_iterate(index->hashtable, fp, print_word_counter);
 
 	} else {
-		fprintf(stderr, "Error: File %s could not be opened!", filename);
+		fprintf(stderr, "Error: File %s could not be opened!\n", filename);
 		exit(1);
 	}
 
@@ -240,7 +241,7 @@ index_load(char *filename, index_t *index)
     	}
 
 	} else {
-		fprintf(stderr, "Error: File %s could not be opened!", filename);
+		fprintf(stderr, "Error: File %s could not be opened!\n", filename);
 		exit(1);
 	}
 
@@ -253,7 +254,7 @@ createFilename(int id, char *dirname)
 {
 	//creates filename based on id and dirname
 	char strId[4];
-	char *filename = (char *)malloc((strlen(dirname)+4)*sizeof(char));	
+	char *filename = (char *)malloc((strlen(dirname)+5)*sizeof(char));	
 
 	sprintf(strId, "%d", id);
 	strcpy(filename, dirname);

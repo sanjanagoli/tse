@@ -82,9 +82,17 @@ And some helper modules that provide data structures:
 
 1. Test the programs with various forms of incorrect command-line arguments to ensure that its command-line parsing, and validation of those parameters, works correctly.
 
-2. Test the indexer with a file that was not created by crawler directory
+2. Test the indexer with a file that is not writable
 
-3. Test the indexer with data directory provided and several other crawler prgraom outputs
+3. Test the `indexer` with data directory provided and several other `crawler` program outputs
 
-4. Test the indextester with nonwritable newIndexFilename
+4. Test the `indexer` with a directory that was not created by crawler program
+
+5. Test the `indextest` with nonwritable `newIndexFilename`
+
+6. Test the `indextest` with an oldIndexFile that does not exist
+
+7. Test an actual application of program wiht output from `indexer` program
+
+8. Confirm success of program by sorting input and output files and comparing results
 

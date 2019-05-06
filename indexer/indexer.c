@@ -25,6 +25,16 @@ main(int argc, char *argv[])
 		char *indexFilename = (char *)malloc((strlen(argv[2])+1)*sizeof(char));
 		strcpy(indexFilename, argv[2]);
 
+		FILE *fp;
+		//creates writable file if it doesnt exist
+		if ((fp = fopen(indexFilename, "w")) == NULL) {
+			fprintf(stderr, "File %s could not be written to!\n", indexFilename);
+			free(directory);
+			free(indexFilename);
+			return 1;
+		}
+		fclose(fp);
+
 		//checks whether the directory is produced by crawler
 		if (isCrawlerDirectory(directory)) {
 			index_t *index = index_new(250);
@@ -33,7 +43,6 @@ main(int argc, char *argv[])
 
 			index_delete(index);
 		} else {
-			fprintf(stderr, "File was not produced by crawler directory");
 			free(directory);
 			free(indexFilename);
 			return 1;
@@ -43,7 +52,7 @@ main(int argc, char *argv[])
 		free(indexFilename);
 		
 	} else {
-		fprintf(stderr, "usage: ./indexer pageDirectory indexFilename");
+		fprintf(stderr, "usage: ./indexer pageDirectory indexFilename\n");
 		return 1;
 	}
 	
