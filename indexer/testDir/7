@@ -1,0 +1,114 @@
+http://old-www.cs.dartmouth.edu/~campbell/page-5/
+1
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<meta charset="utf-8" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="robots" content="index, follow" />
+		<meta name="generator" content="RapidWeaver" />
+		
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Teaching | Andrew T. Campbell">
+	<meta name="twitter:image" content="/~campbell/resources/Screenshot-2018-10-20-22.51.37.png">
+	<meta name="twitter:url" content="https://www.cs.dartmouth.edu/~campbell/page-5/index.html">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Andrew T. Campbell">
+	<meta property="og:title" content="Teaching | Andrew T. Campbell">
+	<meta property="og:image" content="/~campbell/resources/Screenshot-2018-10-20-22.51.37.png">
+	<meta property="og:url" content="https://www.cs.dartmouth.edu/~campbell/page-5/index.html"> 
+
+	<!-- Meta tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+	<title>Teaching | Andrew T. Campbell</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../rw_common/themes/Mountains/consolidated.css?rwcache=561862934" />
+		
+	    		<link rel='stylesheet' type='text/css' media='all' href='../rw_common/plugins/stacks/stacks.css?rwcache=561862934' />
+		<link rel='stylesheet' type='text/css' media='all' href='files/stacks_page_page5.css?rwcache=561862934' />
+        
+        
+        
+        
+		
+        <meta name="formatter" content="Stacks v3.6.4 (4202)" >
+		
+
+</head>
+
+<!-- This page was created with RapidWeaver from Realmac Software. http://www.realmacsoftware.com -->
+
+<body>
+    <div class="hero" id="hero">
+        <nav class="navbar navbar-expand-lg pt-3">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto"><li class="nav-item"><a href="../" rel="" class="nav-link">Home</a></li><li class="nav-item"><a href="../page-6/" rel="" class="nav-link">Awards</a></li><li class="nav-item active"><a href="./" rel="" class="nav-link">Teaching</a></li><li class="nav-item"><a href="../page-4/" rel="" class="nav-link">Students</a></li><li class="nav-item"><a href="../page-7/" rel="" class="nav-link">Talks</a></li><li class="nav-item"><a href="../page-8/" rel="" class="nav-link">Funding</a></li><li class="nav-item"><a href="../page-3/" rel="" class="nav-link">Research</a></li><li class="nav-item"><a href="../page/" rel="" class="nav-link">Publications</a></li><li class="nav-item"><a href="../page-2/" rel="" class="nav-link">News</a></li></ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="hero-content" id="hero">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="hero-title display-1" data-aos="fade-right" data-aos-delay="300" data-aos-duration="500">Andrew T. Campbell</h1>
+                        <h2 class="hero-slogan font-italic display-4" data-aos="fade-right" data-aos-delay="350" data-aos-duration="500">A world where mobile AI helps keep people healthy</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-background"></div>
+    </div>
+
+
+	<main class="content">
+		<div class="container">
+			<div class="row intro justify-content-between">
+				<div class="col-sm-8 intro-col" data-aos="fade-right" data-aos-delay="300" data-aos-duration="500">
+                    
+<div id='stacks_out_1_page5' class='stacks_top'><div id='stacks_in_1_page5' class=''><div id='stacks_out_2_page5' class='stacks_out'><div id='stacks_in_2_page5' class='stacks_in stack_stack'><div id='stacks_out_8_page5' class='stacks_out'><div id='stacks_in_8_page5' class='stacks_in com_yourhead_stack_header_stack'><h3>Teaching</h3></div></div></div></div><div id='stacks_out_4_page5' class='stacks_out'><div id='stacks_in_4_page5' class='stacks_in stack_stack'><div id='stacks_out_6_page5' class='stacks_out'><div id='stacks_in_6_page5' class='stacks_in text_stack'><ul class="disc"><li>CS58 Operating Systems (Fall 2018).</li><li>CS 69/169 Applications of Data Science. </li><li>CS 65/165 Smartphone Programming.  </li><li>CS 69/169 Wearable Computing. </li><li>CS 65/165 Smartphone Programming. </li><li>CS 69/169 Wearable Computing. </li><li>CS 50 Software Design and Implementation. </li><li>CS 69/169 MobileHealth@Dartmouth. </li><li>CS 69/169 Human Behavioral Computing. </li><li>CS 60 Computer Networks.</li><li>CS 69/169 Seminar on Smartphone Sensing and Programming. </li><li>CS 88/188 Clouds, Crowds and Phones.</li><li>E6906 Seminar in Sensor Networks. </li><li>E9701 Seminar in Overlay Networks using PlanetLab. </li><li>E4120 Networking Laboratory. E3940 Microprocessor Systems Laboratory. </li><li>E9651 Mobile and Wireless Networking. </li><li>E6980 Distributed Telecommunications Systems. </li><li>E6901 Seminar on Programmable Networks.</li></ul></div></div></div></div></div></div>
+
+				</div>
+				<div class="sidebar col-sm-4 order-md-8" data-aos="fade-up">
+					<div class="logo" data-aos-delay="450" data-aos-duration="500">
+						<img src="../rw_common/images/andrew-cut-2017.png" width="269" height="349" alt="Andrew T. Campbell"/>
+                    </div>
+
+                    <div class="mt-5">
+                        <h3 class="sidebar-title">
+                            About my courses
+                        </h3>
+                        I like to teach systems classes and typically students write a lot of code and build something. I also list the EE classes I taught at Columbia University. 
+                        
+                    </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col" data-aos="fade-right" data-aos-delay="0" data-aos-duration="500">
+						<div class="footer-content text-center">
+							Thanks for dropping feel free to  <a href="#" id="rw_email_contact">contact me</a><script type="text/javascript">var _rwObsfuscatedHref0 = "mai";var _rwObsfuscatedHref1 = "lto";var _rwObsfuscatedHref2 = ":an";var _rwObsfuscatedHref3 = "dre";var _rwObsfuscatedHref4 = "wtp";var _rwObsfuscatedHref5 = "cam";var _rwObsfuscatedHref6 = "pbe";var _rwObsfuscatedHref7 = "ll@";var _rwObsfuscatedHref8 = "gma";var _rwObsfuscatedHref9 = "il.";var _rwObsfuscatedHref10 = "com";var _rwObsfuscatedHref = _rwObsfuscatedHref0+_rwObsfuscatedHref1+_rwObsfuscatedHref2+_rwObsfuscatedHref3+_rwObsfuscatedHref4+_rwObsfuscatedHref5+_rwObsfuscatedHref6+_rwObsfuscatedHref7+_rwObsfuscatedHref8+_rwObsfuscatedHref9+_rwObsfuscatedHref10; document.getElementById("rw_email_contact").href = _rwObsfuscatedHref;</script>
+                        </div>
+
+						<ul class="navbar-nav mr-auto"><li class="nav-item"><a href="../" rel="" class="nav-link">Home</a></li><li class="nav-item"><a href="../page-6/" rel="" class="nav-link">Awards</a></li><li class="nav-item active"><a href="./" rel="" class="nav-link">Teaching</a></li><li class="nav-item"><a href="../page-4/" rel="" class="nav-link">Students</a></li><li class="nav-item"><a href="../page-7/" rel="" class="nav-link">Talks</a></li><li class="nav-item"><a href="../page-8/" rel="" class="nav-link">Funding</a></li><li class="nav-item"><a href="../page-3/" rel="" class="nav-link">Research</a></li><li class="nav-item"><a href="../page/" rel="" class="nav-link">Publications</a></li><li class="nav-item"><a href="../page-2/" rel="" class="nav-link">News</a></li></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script type="text/javascript" src="../rw_common/themes/Mountains/js/main.js?rwcache=561862934"></script>
+</body>
+
+</html>
