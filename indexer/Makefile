@@ -6,19 +6,25 @@ L = ../libcs50
 LL = ../common
 
 PROG = indexer
-OBJS = indexer.o $(LL)/pagedir.o $(LL)/index.o
+OBJS = indexer.o $(LL)/pagedir.o $(LL)/index.o $(LL)/word.o
+OBJ = indextest.o $(LL)/pagedir.o $(LL)/index.o $(LL)/word.o
 LIBS = -lm
 LLIBS = $L/libcs50.a $(LL)/common.a
 
 CFLAGS = -Wall -pedantic -std=c11 -ggdb -I$L -I$(LL)
 CC = gcc
 
-all: $(PROG)
+all: indexer indextest
 
-$(PROG): $(OBJS) $(LLIBS)
+indexer: indexer.o $(LL)/pagedir.o $(LL)/index.o $(LL)/word.o $(LLIBS)
 	$(CC) $(CFLAGS) $(OBJS) $(LLIBS) $(LIBS) -o $(PROG)
 
-indexer.o: $L/hashtable.h $L/counters.h $L/file.h $L/webpage.h $(LL)/index.h $(LL)/pagedir.h 
+indextest: $(OBJ) $(LLIBS)
+	$(CC) $(CFLAGS) $(OBJ) $(LLIBS) $(LIBS) -o indextest
+
+indexer.o: $L/hashtable.h $L/counters.h $L/file.h $L/webpage.h $(LL)/index.h $(LL)/word.h $(LL)/pagedir.h 
+
+indextest.o: $L/hashtable.h $L/counters.h $L/file.h $L/webpage.h $(LL)/index.h $(LL)/word.h $(LL)/pagedir.h 
 
 .PHONY: all clean
 
@@ -34,4 +40,5 @@ indexer.o: $L/hashtable.h $L/counters.h $L/file.h $L/webpage.h $(LL)/index.h $(L
 clean:
 	rm -rf *.dSYM  # MacOS debugger info
 	rm -f *~ *.o
-	rm -f $(PROG)
+	rm -f indexer
+	rm -f indextest

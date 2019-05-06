@@ -21,22 +21,6 @@ NormalizeWord(char *word)
 	    temp[ptr - word] = tolower(*ptr);
 	}
 
-	// char *temp = (char *)malloc(strlen(word)+1);
-	// char temp2[(int)strlen(temp)+1];
-	// char *p;
-
-	// int i = 0;
- //    for (p = word; *p != '\0'; p++) {
- //    	temp2[i] = (char)tolower(*p);
- //    	i++;
- //    }
-
- //    int index=0;
-	// while(index <= strlen(temp))
-	// {
-	//   temp[index] = temp2[index];
-	//   index++;
-	// }
 
 	//printf ("After conversion temp: %s\n", temp);
 	return temp;
