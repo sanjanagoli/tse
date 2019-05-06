@@ -33,12 +33,12 @@ main(int argc, char *argv[])
 			return 1;
 		}
 		
-		index_t *index2 = index_new(sizeOfTable);
+		index_t *index = index_new(sizeOfTable);
 
-		index_load(oldIndexFilename, index2);
-		index_save(newIndexFilename, index2);
+		index_load(oldIndexFilename, index);
+		index_save(newIndexFilename, index);
 
-		index_delete(index2);
+		index_delete(index);
 		free(oldIndexFilename);
 		free(newIndexFilename);
 

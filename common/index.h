@@ -59,7 +59,6 @@ void index_delete(index_t *index);
 /* delete_helper: helper method is necessary for hashtable_delete --> frees each of the counters in hashtable with counters_delete */
 void delete_helper(void *item);
 
-
 /* index_build: scans file that is inputted, creates a webpage from url and html given, parses html to find words,
    inserts words into index using index_insert_word */
 void index_build(char *directory, index_t *index);

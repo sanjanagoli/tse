@@ -32,6 +32,11 @@ main(int argc, char *argv[])
 			index_save(indexFilename, index);
 
 			index_delete(index);
+		} else {
+			fprintf(stderr, "File was not produced by crawler directory");
+			free(directory);
+			free(indexFilename);
+			return 1;
 		}
 
 		free(directory);
@@ -41,8 +46,5 @@ main(int argc, char *argv[])
 		fprintf(stderr, "usage: ./indexer pageDirectory indexFilename");
 		return 1;
 	}
-	
-
-	
 	
 }
