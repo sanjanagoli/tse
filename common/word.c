@@ -21,7 +21,5 @@ NormalizeWord(char *word)
 	    temp[ptr - word] = tolower(*ptr);
 	}
 
-
-	//printf ("After conversion temp: %s\n", temp);
 	return temp;
 }
