@@ -38,7 +38,7 @@ Anticipating the following modules or functions:
 5. *NormalizeWord*, converts word to lowercase to standardize and account for repeated words that are different capitalization
 
 And some helper modules that provide data structures:
-*index* utilizes *hashtable* and *counters* to store word and corresponding pageId & count
+*index* utilizes *hashtable* and *counters* to store word and corresponding pageId & count; most of the functions will be placed into a library of functions in `index.c` and `index.h`
 
 
 ## Pseudo code for logic/algorithmic flow

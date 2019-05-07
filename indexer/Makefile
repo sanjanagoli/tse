@@ -17,7 +17,7 @@ CC = gcc
 
 all: indexer indextest
 
-$(PROG): indexer.o $(LL)/pagedir.o $(LL)/index.o $(LL)/word.o $(LLIBS)
+$(PROG): $(OBJS) $(LLIBS)
 	$(CC) $(CFLAGS) $(OBJS) $(LLIBS) $(LIBS) -o $(PROG)
 
 $(PROGRAM): $(OBJ) $(LLIBS)
@@ -38,5 +38,6 @@ valgrind:
 clean:
 	rm -rf *.dSYM  # MacOS debugger info
 	rm -f *~ *.o
+	rm -f *.txt
 	rm -f indexer
 	rm -f indextest
