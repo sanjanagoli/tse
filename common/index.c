@@ -134,7 +134,7 @@ index_build(char *directory, index_t *index)
 		   	free(result);
 
 		   //calls method above which increments counter of word based on corresponding id
-		    if(strlen(str) > 3) {
+		    if(strlen(str) >= 3) {
 		   		index_insert_word(index, str, id);
 		    }
 		    free(str);
