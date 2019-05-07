@@ -17,8 +17,8 @@ usage: ./indexer pageDirectory indexFilename
 Error: Directory ../common is not a directory produced by crawler program
 
 # Not writable file
-./indexer testDir notwritable.txt
-File notwritable.txt could not be written to!
+./indexer testDir nowrite
+File nowrite could not be written to!
 
 # Working test
 ./indexer testDir oldIndexFile.txt
@@ -33,8 +33,8 @@ File notwritable.txt could not be written to!
 The file water.txt did not exist
 
 # second file (file that contains output) is not writable
-./indextest oldIndexFile.txt notwritable.txt
-File notwritable.txt could not be written to!
+./indextest oldIndexFile.txt nowrite
+File nowrite could not be written to!
 
 # actual case --> using input from correct indexer case above
 ./indextest oldIndexFile.txt newIndexFile.txt

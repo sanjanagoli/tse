@@ -14,7 +14,7 @@
 ./indexer ../common oldIndexFile.txt
 
 # Not writable file
-./indexer testDir notwritable.txt
+./indexer testDir nowrite
 
 # Working test
 ./indexer testDir oldIndexFile.txt
@@ -28,7 +28,7 @@
 ./indextest water.txt new.txt
 
 # second file (file that contains output) is not writable
-./indextest oldIndexFile.txt notwritable.txt
+./indextest oldIndexFile.txt nowrite
 
 # actual case --> using input from correct indexer case above
 ./indextest oldIndexFile.txt newIndexFile.txt
