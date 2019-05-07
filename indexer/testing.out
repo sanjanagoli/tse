@@ -3,10 +3,66 @@ bash -v testing.sh
 # testing.sh - testing for indexer.c and indextest.c
 # Sanjana Goli, April 2019
 # 
-#
+# testDir has the output from ./crawler http://old-www.cs.dartmouth.edu/~campbell/page-4/ testDir 1
+# testDir2 has the output from ./crawler http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html testDir2 1
 # Description: Test cases for indexer.c and indextest.c
 
 # INDEXER TESTING
+
+## creating input/out files
+mkdir testDir
+mkdir testDir2
+../crawler/crawler http://old-www.cs.dartmouth.edu/~campbell/page-4/ testDir 1
+ 0   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0  Scanning: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-6/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-5/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/./
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-7/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-8/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-2/
+ 0     Found: https://www.cs.dartmouth.edu/~kmasaba/
+ 0  IgnExtrn: https://www.cs.dartmouth.edu/~kmasaba/
+ 0     Found: https://www.cs.dartmouth.edu/~we-wang/
+ 0  IgnExtrn: https://www.cs.dartmouth.edu/~we-wang/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-6/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-5/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/./
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-7/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-8/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-3/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-2/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/
+../crawler/crawler http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html testDir2 1
+ 0   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+ 0  Scanning: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+ 0     Found: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+
+touch nowrite.txt
+chmod -w nowrite.txt
 
 # More than three arguments
 ./indexer testDir oldIndexFile.txt extraarg
@@ -17,14 +73,15 @@ usage: ./indexer pageDirectory indexFilename
 Error: Directory ../common is not a directory produced by crawler program
 
 # Not writable file
-./indexer testDir nowrite
-File nowrite could not be written to!
+./indexer testDir nowrite.txt
+File nowrite.txt could not be written to!
 
 # Working test
 ./indexer testDir oldIndexFile.txt
 
 # Working test2
 ./indexer testDir2 indexFile1.txt
+
 
 # INDEXTEST TESTING
 
@@ -33,8 +90,8 @@ File nowrite could not be written to!
 The file water.txt did not exist
 
 # second file (file that contains output) is not writable
-./indextest oldIndexFile.txt nowrite
-File nowrite could not be written to!
+./indextest oldIndexFile.txt nowrite.txt
+File nowrite.txt could not be written to!
 
 # actual case --> using input from correct indexer case above
 ./indextest oldIndexFile.txt newIndexFile.txt
@@ -52,3 +109,8 @@ if [ $? -eq 0 ]; then
 	echo success
 fi
 success
+
+# cleaning
+rm -rf testDir
+rm -rf testDir2
+rm -f nowrite.txt
