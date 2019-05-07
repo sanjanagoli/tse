@@ -11,6 +11,7 @@ bash -v testing.sh
 
 ## creating input/out files
 mkdir testDir
+mkdir: cannot create directory ‘testDir’: File exists
 mkdir testDir2
 ../crawler/crawler http://old-www.cs.dartmouth.edu/~campbell/page-4/ testDir 1
  0   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-4/
