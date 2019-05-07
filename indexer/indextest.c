@@ -31,7 +31,7 @@ main(int argc, char *argv[])
 		//also checks if oldIndexFilename exists
 		if ((lines = get_num_lines(oldIndexFilename)) != -1) {
 			//determines the size of the hashtable based on words in file
-			if (lines > 10) {
+			if (lines >= 1000) {
 				sizeOfTable = (int) (lines/10);
 			} else {
 				sizeOfTable = lines;
