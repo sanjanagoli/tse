@@ -14,6 +14,7 @@
 #include "counters.h"
 #include "word.h"
 
+typedef struct docscore docscore_t;
 void query(index_t *index);
 counters_t* calculate_score(char **words, index_t *index, int numWords);
 void counters_compare_helper(void *arg, const int key, const int count);
@@ -24,11 +25,12 @@ void update_helper(void *arg, const int key, const int count);
 void counters_intersection(counters_t *intersection, counters_t *ctr);
 void counters_intsersection_helper(void *arg, const int key, const int count);
 void add_firstword_counter(void *arg, const int key, const int count);
-void sort_matches(counters_t *ctr);
+docscore_t ** sort_matches(counters_t *ctr);
 void itemcount(void *arg, const int key, const int count);
 void min_helper(void *arg, const int key, const int count);
 void first_min_helper(void *arg, const int key, const int count);
 void insert_array_helper(void *arg, const int key, const int count);
+void delete_array(docscore_t **sortedArray, int numItems);
 char ** read_input();
 
 
@@ -107,6 +109,10 @@ main(int argc, char *argv[])
 
 		query(index);
 
+		index_delete(index);
+		free(directory);
+		free(indexFilename);
+
 		// counters_t *ctr;
 		// if ((ctr = index_find(index, test)) != NULL) {
 		// 	counters_iterate(ctr, stdout, print_count_helper);
@@ -141,49 +147,60 @@ main(int argc, char *argv[])
 void
 query(index_t *index)
 {
-	char *line = freadlinep(stdin);
-	line = NormalizeWord(line);
-	printf("Query: %s\n", line);
+	//char *line = freadlinep(stdin);
+	char *line;
+	counters_t *documentScores;
+	docscore_t **sortedArray;
+	while( (line = freadlinep(stdin)) != NULL) {
 
-	char delim[] = " ";
-	char *words[60]; // max number of commands
-	char *ptr = strtok(line, delim);
-	int j = 0;
+	
+		line = NormalizeWord(line);
+		printf("Query: %s\n", line);
 
-	while(ptr != NULL)
-	{	
-		words[j] = ptr;
-		//printf("%s\n", words[j]);
-		ptr = strtok(NULL, delim);
-		j++;
-	}
+		char delim[] = " ";
+		char *words[60]; // max number of commands
+		char *ptr = strtok(line, delim);
+		int j = 0;
 
-	int numWords = j;
-	printf("%d", numWords);
-	int i = 0;
-	while (i < j)
-	{
-		for (int k = 0; k < strlen(words[i]); k++) {
-			if( !isalpha(words[i][k]) && !isspace(words[i][k]) ) {
-				fprintf(stderr, "Error: bad character '%c' in query\n", words[i][k]);
-				//do not proceed after this
-			}
-
+		while(ptr != NULL)
+		{	
+			words[j] = ptr;
+			//printf("%s\n", words[j]);
+			ptr = strtok(NULL, delim);
+			j++;
 		}
-		i++;
+
+		int numWords = j;
+		printf("%d", numWords);
+		int i = 0;
+		while (i < j)
+		{
+			for (int k = 0; k < strlen(words[i]); k++) {
+				if( !isalpha(words[i][k]) && !isspace(words[i][k]) ) {
+					fprintf(stderr, "Error: bad character '%c' in query\n", words[i][k]);
+					//do not proceed after this
+				}
+
+			}
+			i++;
+		}
+
+		//i = 0;
+
+		
+
+		//return words;
+		documentScores = calculate_score(words, index, numWords);
+		sortedArray = sort_matches(documentScores);
+		int numItems = 0;
+		counters_iterate(documentScores, &numItems, itemcount);
+		free(line);
+		delete_array(sortedArray, numItems);
+		
+
 	}
-
-	//i = 0;
-
-	
-
-	//return words;
-	counters_t *documentScores = calculate_score(words, index, numWords);
-
-	int check = counters_get(documentScores, 3);
-	printf("check: %d", check);
-	sort_matches(documentScores);
-	
+	counters_delete(documentScores);
+	free(line);
 	
 	
 }
@@ -291,6 +308,7 @@ evaluate_and_sequence(char **andwords, index_t *index, int numAndWords)
 		//copies first word's counter to overall andsequencectr (intersection holder)
 		
 		counters_t *wordCounter = index_find(index, andwords[0]);
+
 		if (wordCounter != NULL) {
 			counters_iterate(wordCounter, andsequenceCtr, add_firstword_counter);
 		}
@@ -298,14 +316,17 @@ evaluate_and_sequence(char **andwords, index_t *index, int numAndWords)
 
 		//start after the first word
 		int i = 1;
-		printf("numandwords %d", numAndWords);
 		while (i < numAndWords)
 		{
 			counters_t *tempCtr = index_find(index, andwords[i]);
-			counters_intersection(andsequenceCtr, tempCtr);
+			if (tempCtr != NULL) {
+				counters_intersection(andsequenceCtr, tempCtr);
+				
+			}
 			i++;
 		}
 	}
+
 	return andsequenceCtr;
 }
 
@@ -360,24 +381,44 @@ counters_intsersection_helper(void *arg, const int key, const int count)
 	}
 }
 
-void
+docscore_t **
 sort_matches(counters_t *ctr)
 {
 	//determine the number of elements in the counter
 	int numItems = 0;
 	counters_iterate(ctr, &numItems, itemcount);
-	docscore_t *sortedArray = calloc(numItems, sizeof(docscore_t));
+	docscore_t **sortedArray = calloc(numItems, sizeof(docscore_t*));
 	// sorter_t *sorter = malloc(sizeof(sorter_t));
 	// sorter->index = 0;
 	// sorter->numInts = numItems;
 	// sorter->array = sortedArray;
 
 	counters_iterate(ctr, sortedArray, insert_array_helper);
-	sortedArray = sortedArray-1;
-	for (int k = 0; k < numItems; k++) {
-		printf("sortedarray[%d] key: %d\n", k, sortedArray->docId);
-		printf("sortedarray[%d] val: %d", k, sortedArray->score);
-		sortedArray++;
+	//sortedArray = sortedArray-numItems+1;
+	// for (int k = 0; k < numItems; k++) {
+	// 	printf("sortedarray[%d] key: %d", k, sortedArray[k]->docId);
+	// 	printf("sortedarray[%d] val: %d \n", k, sortedArray[k]->score);
+	// }
+
+	//sorts the array of docscores
+	for (int i = 0; i < numItems; ++i) {
+        for (int j = i + 1; j < numItems; ++j) {
+            if (sortedArray[i]->score < sortedArray[j]->score) {
+
+                int score = sortedArray[i]->score;
+                int doc = sortedArray[i]->docId;
+                sortedArray[i]->score = sortedArray[j]->score;
+                sortedArray[i]->docId = sortedArray[j]->docId;
+                sortedArray[j]->score = score;
+				sortedArray[j]->docId = doc;
+            }
+
+        }
+    }
+
+    for (int k = 0; k < numItems; k++) {
+		printf("sortedarray[%d] key: %d", k, sortedArray[k]->docId);
+		printf("sortedarray[%d] val: %d \n", k, sortedArray[k]->score);
 	}
 
 	// int minKey = 10000, i = 0;
@@ -402,29 +443,53 @@ sort_matches(counters_t *ctr)
 	// for (int j = 0; j < numItems; j++) {
 	// 	printf("%d ", sortedArray[j]);
 	// }
-	
+	return sortedArray;
 }
 
 void 
 insert_array_helper(void *arg, const int key, const int count)
 {
-	docscore_t *sortedArray = arg;
+	docscore_t **sortedArray = arg;
 	docscore_t *docscore = malloc(sizeof(docscore_t));
-
 	docscore->docId = key;
 	docscore->score = count;
-	printf("docscore docid: %d", key);
-	
-	*sortedArray = *docscore;
-	if(key == 4) {
-		printf("here: %d", sortedArray->docId);
-		printf("also: %d \n", sortedArray->score);
-		//printf("another: %d \n", (sortedArray-1)->docId);
+
+	int i = 0;
+	while (sortedArray[i] != NULL) {
+		i++;
 	}
+	sortedArray[i] = docscore;
+	printf("sortedArray[%d] key: %d, count: %d\n", i, sortedArray[i]->docId, sortedArray[i]->score);
 
-	sortedArray = sortedArray+1;
+	// docscore_t *docscore = malloc(sizeof(docscore_t));
+	// printf(" key: %d", sortedArray->docId);
+	// printf(" val: %d \n", sortedArray->score);
+	// docscore->docId = key;
+	// docscore->score = count;
+	// printf("docscore docid: %d \n", key);
+	
+	// *sortedArray = *docscore;
+	// if(key == 4) {
+	// 	printf("here: %d", sortedArray->docId);
+	// 	printf("also: %d \n", sortedArray->score);
+	// 	//printf("another: %d \n", (sortedArray-1)->docId);
+	// }
 
+	//printf("address %p\n", sortedArray);
+	//sortedArray = sortedArray + sizeof(docscore);
+	
 }
+
+void
+delete_array(docscore_t **sortedArray, int numItems)
+{
+	
+	for(int i = 0; i < numItems; i++) {
+		free(sortedArray[i]);
+	}
+	free(sortedArray);
+}
+
 
 void 
 itemcount(void *arg, const int key, const int count)
