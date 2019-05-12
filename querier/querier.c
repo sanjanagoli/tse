@@ -24,6 +24,11 @@ void update_helper(void *arg, const int key, const int count);
 void counters_intersection(counters_t *intersection, counters_t *ctr);
 void counters_intsersection_helper(void *arg, const int key, const int count);
 void add_firstword_counter(void *arg, const int key, const int count);
+void sort_matches(counters_t *ctr);
+void itemcount(void *arg, const int key, const int count);
+void min_helper(void *arg, const int key, const int count);
+void first_min_helper(void *arg, const int key, const int count);
+void insert_array_helper(void *arg, const int key, const int count);
 char ** read_input();
 
 
@@ -31,6 +36,12 @@ typedef struct counters_group {
 	counters_t *firstCounter;
 	counters_t *secondCounter;
 } counters_group_t;
+
+typedef struct docscore {
+	int docId;
+	int score;
+	
+} docscore_t;
 
 int
 main(int argc, char *argv[])
@@ -132,6 +143,7 @@ query(index_t *index)
 {
 	char *line = freadlinep(stdin);
 	line = NormalizeWord(line);
+	printf("Query: %s\n", line);
 
 	char delim[] = " ";
 	char *words[60]; // max number of commands
@@ -161,13 +173,21 @@ query(index_t *index)
 		i++;
 	}
 
+	//i = 0;
+
+	
+
 	//return words;
 	counters_t *documentScores = calculate_score(words, index, numWords);
+
 	int check = counters_get(documentScores, 3);
 	printf("check: %d", check);
+	sort_matches(documentScores);
+	
 	
 	
 }
+
 
 counters_t * 
 calculate_score(char **words, index_t *index, int numWords)
@@ -337,6 +357,103 @@ counters_intsersection_helper(void *arg, const int key, const int count)
 	//if the value of the compared counter's key is less than replace the value in intersection
 	if ((newCount = counters_get(group->firstCounter, key)) < count) {
 		counters_set(group->secondCounter, key, newCount);
+	}
+}
+
+void
+sort_matches(counters_t *ctr)
+{
+	//determine the number of elements in the counter
+	int numItems = 0;
+	counters_iterate(ctr, &numItems, itemcount);
+	docscore_t *sortedArray = calloc(numItems, sizeof(docscore_t));
+	// sorter_t *sorter = malloc(sizeof(sorter_t));
+	// sorter->index = 0;
+	// sorter->numInts = numItems;
+	// sorter->array = sortedArray;
+
+	counters_iterate(ctr, sortedArray, insert_array_helper);
+	sortedArray = sortedArray-1;
+	for (int k = 0; k < numItems; k++) {
+		printf("sortedarray[%d] key: %d\n", k, sortedArray->docId);
+		printf("sortedarray[%d] val: %d", k, sortedArray->score);
+		sortedArray++;
+	}
+
+	// int minKey = 10000, i = 0;
+
+
+
+	// while (i < numItems) {
+	// 	//pass in value --> get key in return
+	// 	if (i == 0) {
+	// 		counters_iterate(ctr, &minKey, first_min_helper);
+	// 	} else {
+	// 		counters_iterate(ctr, &minKey, min_helper);
+	// 	}
+		
+	// 	//array of keys
+		
+	// 	sortedArray[i] = minKey;
+	// 	minKey = counters_get(ctr, minKey);
+	// 	printf("after iterate minval %d\n", minKey);
+	// 	i++;
+	// }
+	// for (int j = 0; j < numItems; j++) {
+	// 	printf("%d ", sortedArray[j]);
+	// }
+	
+}
+
+void 
+insert_array_helper(void *arg, const int key, const int count)
+{
+	docscore_t *sortedArray = arg;
+	docscore_t *docscore = malloc(sizeof(docscore_t));
+
+	docscore->docId = key;
+	docscore->score = count;
+	printf("docscore docid: %d", key);
+	
+	*sortedArray = *docscore;
+	if(key == 4) {
+		printf("here: %d", sortedArray->docId);
+		printf("also: %d \n", sortedArray->score);
+		//printf("another: %d \n", (sortedArray-1)->docId);
+	}
+
+	sortedArray = sortedArray+1;
+
+}
+
+void 
+itemcount(void *arg, const int key, const int count)
+{
+  int *nitems = arg;
+
+  if (nitems != NULL && (key >= 0) && (count >= 0))
+    (*nitems)++;
+}
+
+void
+first_min_helper(void *arg, const int key, const int count)
+{
+	int *minKey = arg;
+	
+	if (*minKey > count) {
+		
+		*minKey = key;
+	}
+}
+
+void
+min_helper(void *arg, const int key, const int count)
+{
+	int *minKey = arg;
+	printf("reached here: %d %d minVal %d \n", key, count, *minKey);
+	if (*minKey >= count && *minKey != key) {
+		
+		*minKey = key;
 	}
 }
 
