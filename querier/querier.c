@@ -15,14 +15,15 @@
 #include "word.h"
 
 typedef struct docscore docscore_t;
+typedef struct counters_group counters_group_t;
 void query(index_t *index);
 counters_t* calculate_score(char **words, index_t *index, int numWords);
 void counters_compare_helper(void *arg, const int key, const int count);
 counters_t * evaluate_and_sequence(char **andwords, index_t *index, int numAndWords);
-void update_document_scores(counters_t *documentCounter, counters_t *andsequencectr);
+counters_group_t * update_document_scores(counters_t *documentCounter, counters_t *andsequencectr);
 void update_helper(void *arg, const int key, const int count);
 //void counters_intersection(counters_t *intersection, counters_t *ctr, index_t *index, char **words);
-void counters_intersection(counters_t *intersection, counters_t *ctr);
+counters_group_t * counters_intersection(counters_t *intersection, counters_t *ctr);
 void counters_intsersection_helper(void *arg, const int key, const int count);
 void add_firstword_counter(void *arg, const int key, const int count);
 docscore_t ** sort_matches(counters_t *ctr);
@@ -148,13 +149,14 @@ void
 query(index_t *index)
 {
 	//char *line = freadlinep(stdin);
-	char *line;
+	char *input;
 	counters_t *documentScores;
 	docscore_t **sortedArray;
-	while( (line = freadlinep(stdin)) != NULL) {
+	while( (input = freadlinep(stdin)) != NULL) {
 
-	
-		line = NormalizeWord(line);
+		char* line;
+		line = NormalizeWord(input);
+		free(input);
 		printf("Query: %s\n", line);
 
 		char delim[] = " ";
@@ -196,11 +198,12 @@ query(index_t *index)
 		counters_iterate(documentScores, &numItems, itemcount);
 		free(line);
 		delete_array(sortedArray, numItems);
+		counters_delete(documentScores);
 		
 
 	}
-	counters_delete(documentScores);
-	free(line);
+	//counters_delete(documentScores);
+	//free(line);
 	
 	
 }
@@ -254,7 +257,9 @@ calculate_score(char **words, index_t *index, int numWords)
 			andsequence[j] = words[i];
 			counters_t *tempCtr = evaluate_and_sequence(andsequence, index, j+1);
 			
-			update_document_scores(documentScores, tempCtr);
+			counters_group_t *group = update_document_scores(documentScores, tempCtr);
+			counters_delete(tempCtr);
+			free(group);
 
 			j = 0;
 			if (i == numWords-2) {
@@ -273,7 +278,9 @@ calculate_score(char **words, index_t *index, int numWords)
 			andsequence[j] = words[i];
 			if (i+1 == numWords) {
 				counters_t *tempCtr = evaluate_and_sequence(andsequence, index, j+1);
-				update_document_scores(documentScores, tempCtr);
+				counters_group_t *group = update_document_scores(documentScores, tempCtr);
+				counters_delete(tempCtr);
+				free(group);
 				printf("other: \n");
 				counters_print(documentScores, stdout);
 			}
@@ -288,17 +295,6 @@ calculate_score(char **words, index_t *index, int numWords)
 counters_t *
 evaluate_and_sequence(char **andwords, index_t *index, int numAndWords)
 {
-	// char delim[] = " ";
-	// char *andwords[60]; // max number of commands
-	// char *ptr = strtok(andsequence, delim);
-	// int j = 0;
-
-	// while(ptr != NULL)
-	// {	
-	// 	andwords[j] = ptr;
-	// 	ptr = strtok(NULL, delim);
-	// 	j++;
-	// }
 
 	//counter to handle the values in the andSequence
 	counters_t *andsequenceCtr = counters_new();
@@ -316,17 +312,15 @@ evaluate_and_sequence(char **andwords, index_t *index, int numAndWords)
 
 		//start after the first word
 		int i = 1;
-		while (i < numAndWords)
-		{
+		while (i < numAndWords) {
 			counters_t *tempCtr = index_find(index, andwords[i]);
 			if (tempCtr != NULL) {
-				counters_intersection(andsequenceCtr, tempCtr);
-				
+				counters_group_t * group = counters_intersection(andsequenceCtr, tempCtr);
+				free(group);
 			}
 			i++;
 		}
 	}
-
 	return andsequenceCtr;
 }
 
@@ -337,7 +331,7 @@ add_firstword_counter(void *arg, const int key, const int count)
 	counters_set(ctr, key, count);
 }
 
-void
+counters_group_t *
 update_document_scores(counters_t *documentCounter, counters_t *andsequencectr)
 {
 	counters_group_t *group = malloc(sizeof(counters_group_t));
@@ -345,6 +339,7 @@ update_document_scores(counters_t *documentCounter, counters_t *andsequencectr)
 	group->firstCounter = andsequencectr;
 	group->secondCounter = documentCounter;
 	counters_iterate(andsequencectr, group, update_helper);
+	return group;
 }
 
 void
@@ -355,7 +350,7 @@ update_helper(void *arg, const int key, const int count)
 }
 
 
-void
+counters_group_t *
 counters_intersection(counters_t *intersection, counters_t *ctr)
 {
 	counters_group_t *group = malloc(sizeof(counters_group_t));
@@ -365,7 +360,7 @@ counters_intersection(counters_t *intersection, counters_t *ctr)
 
 	//updates intersection counter based on specifications
 	counters_iterate(intersection, group, counters_intsersection_helper);
-
+	return group;
 }
 
 
