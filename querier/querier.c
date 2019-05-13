@@ -16,7 +16,7 @@
 
 typedef struct docscore docscore_t;
 typedef struct counters_group counters_group_t;
-void query(index_t *index);
+void query(index_t *index, char* directory);
 counters_t* calculate_score(char **words, index_t *index, int numWords);
 void counters_compare_helper(void *arg, const int key, const int count);
 counters_t * evaluate_and_sequence(char **andwords, index_t *index, int numAndWords);
@@ -32,6 +32,7 @@ void min_helper(void *arg, const int key, const int count);
 void first_min_helper(void *arg, const int key, const int count);
 void insert_array_helper(void *arg, const int key, const int count);
 void delete_array(docscore_t **sortedArray, int numItems);
+void display_results(char *query, int matches, char *crawlerDirectory, docscore_t **sortedArray);
 char ** read_input();
 
 
@@ -58,16 +59,8 @@ main(int argc, char *argv[])
 		char *indexFilename = (char *)malloc((strlen(argv[2])+1)*sizeof(char));
 		strcpy(indexFilename, argv[2]);
 
-		// char *directory = (char *)malloc((strlen(argv[2])+1)*sizeof(char));
-		// strcpy(directory, argv[2]);
-
-		// //file produced by indexer
-		// char *indexFilename = (char *)malloc((strlen(argv[3])+1)*sizeof(char));
-		// strcpy(indexFilename, argv[3]);
-
 		int lines;
 		int sizeOfTable;
-
 
 
 		//also checks if indexFilename exists
@@ -108,18 +101,11 @@ main(int argc, char *argv[])
 		// counters_t *counter = index_find(index, "afsaneh");
 		// printf("afsenah: %d", counters_get(counter, 3));
 
-		query(index);
+		query(index, directory);
 
 		index_delete(index);
 		free(directory);
 		free(indexFilename);
-
-		// counters_t *ctr;
-		// if ((ctr = index_find(index, test)) != NULL) {
-		// 	counters_iterate(ctr, stdout, print_count_helper);
-		// }
-
-		
 
 	} else {
 		//too few or too many arguments
@@ -146,18 +132,15 @@ main(int argc, char *argv[])
 }
 
 void
-query(index_t *index)
-{
-	//char *line = freadlinep(stdin);
+query(index_t *index, char* directory)
+{	
 	char *input;
 	counters_t *documentScores;
 	docscore_t **sortedArray;
-	while( (input = freadlinep(stdin)) != NULL) {
-
+	while( (input = freadlinep(stdin)) != NULL)   {
+		bool error = false;
 		char* line;
 		line = NormalizeWord(input);
-		free(input);
-		printf("Query: %s\n", line);
 
 		char delim[] = " ";
 		char *words[60]; // max number of commands
@@ -173,13 +156,14 @@ query(index_t *index)
 		}
 
 		int numWords = j;
-		printf("%d", numWords);
+		// printf("%d", numWords);
 		int i = 0;
-		while (i < j)
+		while (i < j )
 		{
 			for (int k = 0; k < strlen(words[i]); k++) {
 				if( !isalpha(words[i][k]) && !isspace(words[i][k]) ) {
 					fprintf(stderr, "Error: bad character '%c' in query\n", words[i][k]);
+					error = true;
 					//do not proceed after this
 				}
 
@@ -187,25 +171,34 @@ query(index_t *index)
 			i++;
 		}
 
-		//i = 0;
+		if (!error) {
 
-		
+			//return words;
+			documentScores = calculate_score(words, index, numWords);
+			sortedArray = sort_matches(documentScores);
+			int numItems = 0;
+			counters_iterate(documentScores, &numItems, itemcount);
 
-		//return words;
-		documentScores = calculate_score(words, index, numWords);
-		sortedArray = sort_matches(documentScores);
-		int numItems = 0;
-		counters_iterate(documentScores, &numItems, itemcount);
+
+			int nonZeroCount = 0;
+		    for (int i = 0; i < numItems; i++) {
+		    	if (sortedArray[i]->score > 0) {
+		    		nonZeroCount++;
+		    	}
+		    }
+
+		    printf("nonZeroCount: %d\n", nonZeroCount);
+
+		    display_results(input, nonZeroCount, directory, sortedArray);
+		    
+			delete_array(sortedArray, numItems);
+			counters_delete(documentScores);
+		}
+		free(input);
 		free(line);
-		delete_array(sortedArray, numItems);
-		counters_delete(documentScores);
-		
+			
 
 	}
-	//counters_delete(documentScores);
-	//free(line);
-	
-	
 }
 
 
@@ -213,7 +206,6 @@ counters_t *
 calculate_score(char **words, index_t *index, int numWords)
 {
 	bool success = true;
-	//int score = 0;
 	if ((strcmp(words[0], "and") == 0) || (strcmp(words[0], "or") == 0)) {
 		fprintf(stderr, "'%s' cannot be the first word\n", words[0]);
 		success = false;
@@ -411,6 +403,7 @@ sort_matches(counters_t *ctr)
         }
     }
 
+
     for (int k = 0; k < numItems; k++) {
 		printf("sortedarray[%d] key: %d", k, sortedArray[k]->docId);
 		printf("sortedarray[%d] val: %d \n", k, sortedArray[k]->score);
@@ -473,6 +466,25 @@ insert_array_helper(void *arg, const int key, const int count)
 	//printf("address %p\n", sortedArray);
 	//sortedArray = sortedArray + sizeof(docscore);
 	
+}
+
+void
+display_results(char *query, int matches, char *crawlerDirectory, docscore_t **sortedArray)
+{
+	printf("Query: %s\n", query);
+	printf("Matches %d documents\n", matches);
+	for (int i = 0; i < matches; i++) {
+		char *filename = createFilename(sortedArray[i]->docId, crawlerDirectory);
+		FILE *fp;
+		if ((fp = fopen(filename, "r")) != NULL) {
+			char *url = freadlinep(fp);
+			printf("score %4d doc %4d: %s\n", sortedArray[i]->score, sortedArray[i]->docId, url);
+			free(url);
+		}
+		fclose(fp);
+		free(filename);
+	}
+
 }
 
 void
