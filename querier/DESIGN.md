@@ -51,9 +51,10 @@ Anticipating the following modules or functions (functions that contain function
 	- would take in words from query and loop through each word to incorporate 'and' 'or' operator logic
 	- when the next word is 'or' or if it is the last word in the query --> evaluate the individual and-sequence
 4. *evaluate_and_sequence* would find the intersection of the counters based on if the word exists in the index using *counters_intersection* and prefer the minimum count between the two counters
-	- *counters_intersection* iterates through one counter and checks if the other counter contains the key or not; replace minimum count with each 
+	-  *counters_intersection* iterates through one `counter` and checks if the other `counter` contains the key or not; replace minimum *count* with each 
 	- *counters_intersection* takes in *counters_group* so that it has a group of two counters to deal with
 5. Program updates the total scores of all the documents after the sequence is evaluated, using *update_document_scores*
+6. Sort the matches after the document scores are collected
 
 ## Dataflow through modules
 
@@ -64,5 +65,31 @@ Anticipating the following modules or functions (functions that contain function
 5. *update_document_scores*, takes in two counters and adds values from one counter to total counter
 6. *sort_matches*, takes in counter and sorts values based on ascending order after inserting each element into array
 
+## Major Data Structures
 
+1. *docscore* will hold documentId and scores
+2. *counters_group* will hold two counters 
+3. *index* created by loading in information from *indexFile*
+4. *counters* stores *docId, count* pairs
+
+## Testing Plan
+
+1. Test to make sure the program validates command lind input correctly
+	- test case that is not whether directory is produced by crawler
+	- test case of a indexFile that does not exist
+
+2. Test boundary cases for conjuction operators
+	- operators at beginning
+	- operators at end
+	- operators adjacent
+
+3. Test boundary cases with bad characters in the middle/end/beginning
+
+4. Test case with capitalized word (to ensure the word is normalized)
+
+5. Test case with word that does not exist in the file
+
+6. Test queries with several spaces in different places
+
+7. Test various combinations of operator usage, individually and combined
 

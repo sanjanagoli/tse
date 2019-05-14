@@ -68,7 +68,29 @@ Matches 1 documents
 score   1   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
 --------------------------------------------------------
 
-# create file for conjuctions testing
+## simple working case (with valgrind)
+echo understanding | valgrind ./querier testDir oldIndexFile.txt
+==2266== Memcheck, a memory error detector
+==2266== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==2266== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==2266== Command: ./querier testDir oldIndexFile.txt
+==2266== 
+Query: understanding
+Matches 2 documents
+score   2   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   1   doc   5: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+--------------------------------------------------------
+==2266== 
+==2266== HEAP SUMMARY:
+==2266==     in use at exit: 0 bytes in 0 blocks
+==2266==   total heap usage: 7,593 allocs, 7,593 frees, 111,236 bytes allocated
+==2266== 
+==2266== All heap blocks were freed -- no leaks are possible
+==2266== 
+==2266== For counts of detected and suppressed errors, rerun with: -v
+==2266== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+# create file for conjuctions testing (boundary cases)
 echo and deanna > tester
 echo or deanna >> tester
 echo deanna home or >> tester
@@ -98,7 +120,7 @@ Error: bad character '(' in query
 # word does not exist in file
 echo dog | ./querier testDir oldIndexFile.txt
 Query: dog
-Matches 0 documents
+No documents match. 
 --------------------------------------------------------
 
 # several spaces in front
@@ -133,7 +155,7 @@ score   1   doc   3: http://old-www.cs.dartmouth.edu/~campbell/page/
 ## no intersection
 echo visions and silvia | ./querier testDir oldIndexFile.txt
 Query: visions and silvia
-Matches 0 documents
+No documents match. 
 --------------------------------------------------------
 
 ## with intersections
@@ -162,13 +184,13 @@ score   1   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
 ## one word does not exist in file
 echo dog and deanna | ./querier testDir oldIndexFile.txt
 Query: dog and deanna
-Matches 0 documents
+No documents match. 
 --------------------------------------------------------
 
 ## one word does not exist in file
 echo deanna and dog | ./querier testDir oldIndexFile.txt
 Query: deanna and dog
-Matches 0 documents
+No documents match. 
 --------------------------------------------------------
 
 ## spaces between words

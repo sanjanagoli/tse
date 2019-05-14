@@ -23,8 +23,8 @@ querier.o: $L/hashtable.h $L/counters.h $L/file.h $L/webpage.h $(LL)/index.h $(L
 
 .PHONY: all clean
 
-# test: 
-# 	bash -v testing.sh
+test: 
+	bash -v testing.sh
 
 # valgrind:
 # 	valgrind bash -v testing.sh

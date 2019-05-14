@@ -249,6 +249,14 @@ index_load(char *filename, index_t *index)
 }
 
 /* see index.h for documentation */
+void *
+index_find(index_t *index, const char key[])
+{
+	return hashtable_find(index->hashtable, key);
+}
+
+
+/* see index.h for documentation */
 char *
 createFilename(int id, char *dirname)
 {

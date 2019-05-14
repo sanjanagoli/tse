@@ -19,7 +19,10 @@ echo deanna | ./querier testDir old.txt
 ## simple working case
 echo deanna | ./querier testDir oldIndexFile.txt
 
-# create file for conjuctions testing
+## simple working case (with valgrind)
+echo understanding | valgrind ./querier testDir oldIndexFile.txt
+
+# create file for conjuctions testing (boundary cases)
 echo and deanna > tester
 echo or deanna >> tester
 echo deanna home or >> tester

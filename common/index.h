@@ -63,6 +63,9 @@ void delete_helper(void *item);
    inserts words into index using index_insert_word */
 void index_build(char *directory, index_t *index);
 
+/* index_find: uses hashtable_find in order to find a key within the hashtable of the given index */
+void * index_find(index_t *index, const char key[]);
+
 /* createFilename: creates filename of format dirname/id free(filename) needs to be called after method is invoked */
 char * createFilename(int id, char *dirname);
 

@@ -477,21 +477,26 @@ void
 display_results(char *query, int matches, char *crawlerDirectory, docscore_t **sortedArray)
 {
 	printf("Query: %s\n", query);
-	printf("Matches %d documents\n", matches);
-	for (int i = 0; i < matches; i++) {
-		//index method used in order to determine location of crawler output
-		char *filename = createFilename(sortedArray[i]->docId, crawlerDirectory);
-		FILE *fp;
-		//accesses the url based on the docId from the crawler output
-		if ((fp = fopen(filename, "r")) != NULL) {
-			char *url = freadlinep(fp);
-			printf("score %3d   doc %3d: %s\n", sortedArray[i]->score, sortedArray[i]->docId, url);
-			free(url);
+	if (matches == 0) {
+		printf("No documents match. \n");
+	} else {
+		printf("Matches %d documents\n", matches);
+		for (int i = 0; i < matches; i++) {
+			//index method used in order to determine location of crawler output
+			char *filename = createFilename(sortedArray[i]->docId, crawlerDirectory);
+			FILE *fp;
+			//accesses the url based on the docId from the crawler output
+			if ((fp = fopen(filename, "r")) != NULL) {
+				char *url = freadlinep(fp);
+				printf("score %3d   doc %3d: %s\n", sortedArray[i]->score, sortedArray[i]->docId, url);
+				free(url);
+			}
+			fclose(fp);
+			free(filename);
 		}
-		fclose(fp);
-		free(filename);
 	}
 	printf("--------------------------------------------------------\n");
+
 
 }
 
