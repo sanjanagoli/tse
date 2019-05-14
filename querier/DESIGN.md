@@ -4,18 +4,18 @@
 
 Querier takes in command-line arguments in the following format:
 
-	`./querier crawlerDirectory indexFilename`
+`./querier crawlerDirectory indexFilename`
+For example: `./querier ../crawler/testDir indexFile`
 
-	For example: `./querier ../crawler/testDir indexFile`
 
 Then, if all inputs are validated, the program will prompt the user to enter input to `stdin`
 	
-	For example: `DARTMOUTH college or computer SCIENCE`  
+For example: `DARTMOUTH college or computer SCIENCE`  
 
 Alternatively, the caller can pass in arguments in the command-line call in the following format:
 	
-	`./querier crawlerDirectory indexFilename < tester` where `tester` contains various test cases OR  
-	`echo dartmouth college or computer science | ./querier crawlerDirectory indexFilename`
+`./querier crawlerDirectory indexFilename < tester` where `tester` contains various test cases OR  
+`echo dartmouth college or computer science | ./querier crawlerDirectory indexFilename`
 
 ## Inputs and Outputs
 
