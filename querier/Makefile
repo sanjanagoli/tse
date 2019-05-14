@@ -1,4 +1,4 @@
-# Makefile for indexer
+# Makefile for querier
 #
 # Sanjana Goli, April 2019
 
