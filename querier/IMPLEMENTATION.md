@@ -26,7 +26,7 @@
 	- prints number of matches based on non-zero count in array
 
 ## Function prototypes and their parameters
-
+```c
 void query(index_t *index, char* directory);
 counters_t* calculate_score(char **words, index_t *index, int numWords);
 counters_t * evaluate_and_sequence(char **andwords, index_t *index, int numAndWords);
@@ -34,12 +34,13 @@ counters_group_t * update_document_scores(counters_t *documentCounter, counters_
 void update_helper(void *arg, const int key, const int count);
 counters_group_t * counters_intersection(counters_t *intersection, counters_t *ctr);
 void counters_intsersection_helper(void *arg, const int key, const int count);
-void add_firstword_counter(void *arg, const int key, const int count);
+void add_firstword_counter(void *arg, const int key, const int count);  
 docscore_t ** sort_matches(counters_t *ctr);
 void itemcount(void *arg, const int key, const int count);
 void insert_array_helper(void *arg, const int key, const int count);
 void delete_array(docscore_t **sortedArray, int numItems);
 void display_results(char *query, int matches, char *crawlerDirectory, docscore_t **sortedArray);
+```
 
 `query`: input - takes in index in order to pass into calculate score and `evaluate_and_sequence` (to determine); if `index` contains word); takes in directory for printing later; reads in user input until EOF, tokenizes query, checks whether words contain bad characters, and calls calculate score and contains main functionality for program
 
