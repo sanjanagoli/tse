@@ -26,8 +26,8 @@ querier.o: $L/hashtable.h $L/counters.h $L/file.h $L/webpage.h $(LL)/index.h $(L
 test: 
 	bash -v testing.sh
 
-# valgrind:
-# 	valgrind bash -v testing.sh
+valgrind:
+	valgrind bash -v testing.sh
 
 clean:
 	rm -rf *.dSYM  # MacOS debugger info
