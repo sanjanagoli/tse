@@ -1,0 +1,262 @@
+bash -v testing.sh
+#!/bin/bash
+# testing.sh - testing for querier.c
+# Sanjana Goli, April 2019
+# 
+
+# Creating inputs
+mkdir testDir
+../crawler/crawler http://old-www.cs.dartmouth.edu/~campbell/page-4/ testDir 1
+ 0   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0  Scanning: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-6/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-5/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/./
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-7/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-8/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-2/
+ 0     Found: https://www.cs.dartmouth.edu/~kmasaba/
+ 0  IgnExtrn: https://www.cs.dartmouth.edu/~kmasaba/
+ 0     Found: https://www.cs.dartmouth.edu/~we-wang/
+ 0  IgnExtrn: https://www.cs.dartmouth.edu/~we-wang/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-6/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-5/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/./
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-7/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-8/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-3/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 0     Found: http://old-www.cs.dartmouth.edu/~campbell/page-4/../page-2/
+ 0   IgnDupl: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+ 1   Fetched: http://old-www.cs.dartmouth.edu/~campbell/
+../indexer/indexer testDir oldIndexFile.txt
+
+# COMMANDLINE INPUT TESTING
+
+## non-crawler directory
+echo deanna | ./querier notcrawler oldIndexFile.txt
+Error: Directory notcrawler is not a directory produced by crawler program
+
+## non-existent inputfile
+echo deanna | ./querier testDir old.txt
+Error: The file old.txt did not exist
+
+## simple working case
+echo deanna | ./querier testDir oldIndexFile.txt
+Query: deanna
+Matches 1 documents
+score   1   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+--------------------------------------------------------
+
+# create file for conjuctions testing
+echo and deanna > tester
+echo or deanna >> tester
+echo deanna home or >> tester
+echo deanna home and >> tester
+echo deanna and or home >> tester
+echo deanna or and home >> tester
+
+./querier testDir oldIndexFile.txt < tester
+Error: 'and' cannot be first word of query
+Error: 'or' cannot be first word of query
+Error: or cannot be at the end of the query!
+Error: and cannot be at the end of the query!
+Error: 'and' and 'or' cannot be adjacent
+Error: 'or' and 'and' cannot be adjacent
+
+# bad characters in file
+echo "deanna2 home" > tester
+echo "the!y" >> tester
+echo "-the(y" >> tester
+
+./querier testDir oldIndexFile.txt < tester
+Error: bad character '2' in query
+Error: bad character '!' in query
+Error: bad character '-' in query
+Error: bad character '(' in query
+
+# word does not exist in file
+echo dog | ./querier testDir oldIndexFile.txt
+Query: dog
+Matches 0 documents
+--------------------------------------------------------
+
+# several spaces in front
+echo      health | ./querier testDir oldIndexFile.txt
+Query: health
+Matches 7 documents
+score  12   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   6   doc   3: http://old-www.cs.dartmouth.edu/~campbell/page/
+score   5   doc   2: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+score   4   doc   6: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+score   1   doc   5: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+score   1   doc   1: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+score   1   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+--------------------------------------------------------
+
+# capitalized word that is in file
+echo DARTMouth | ./querier testDir oldIndexFile.txt
+Query: DARTMouth
+Matches 8 documents
+score  10   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   4   doc   5: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+score   4   doc   2: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+score   2   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+score   1   doc   6: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+score   1   doc   7: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+score   1   doc   8: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+score   1   doc   3: http://old-www.cs.dartmouth.edu/~campbell/page/
+--------------------------------------------------------
+
+# AND tests
+
+## no intersection
+echo visions and silvia | ./querier testDir oldIndexFile.txt
+Query: visions and silvia
+Matches 0 documents
+--------------------------------------------------------
+
+## with intersections
+echo nimh and understanding | ./querier testDir oldIndexFile.txt
+Query: nimh and understanding
+Matches 2 documents
+score   2   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   1   doc   5: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+--------------------------------------------------------
+
+## without 'and'
+echo nimh understanding | ./querier testDir oldIndexFile.txt
+Query: nimh understanding
+Matches 2 documents
+score   2   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   1   doc   5: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+--------------------------------------------------------
+
+## several words with intersections
+echo nimh understanding department | ./querier testDir oldIndexFile.txt
+Query: nimh understanding department
+Matches 1 documents
+score   1   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+--------------------------------------------------------
+
+## one word does not exist in file
+echo dog and deanna | ./querier testDir oldIndexFile.txt
+Query: dog and deanna
+Matches 0 documents
+--------------------------------------------------------
+
+## one word does not exist in file
+echo deanna and dog | ./querier testDir oldIndexFile.txt
+Query: deanna and dog
+Matches 0 documents
+--------------------------------------------------------
+
+## spaces between words
+echo     nimh      understanding   department | ./querier testDir oldIndexFile.txt
+Query: nimh understanding department
+Matches 1 documents
+score   1   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+--------------------------------------------------------
+
+# OR tests
+
+## no intersection
+echo visions or silvia | ./querier testDir oldIndexFile.txt
+Query: visions or silvia
+Matches 2 documents
+score   1   doc   6: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+score   1   doc   3: http://old-www.cs.dartmouth.edu/~campbell/page/
+--------------------------------------------------------
+
+## with intersections
+echo nimh or understanding | ./querier testDir oldIndexFile.txt
+Query: nimh or understanding
+Matches 3 documents
+score   6   doc   5: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+score   5   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   3   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+--------------------------------------------------------
+
+## several words with intersections
+echo nimh or understanding or department | ./querier testDir oldIndexFile.txt
+Query: nimh or understanding or department
+Matches 3 documents
+score   6   doc   5: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+score   6   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   3   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+--------------------------------------------------------
+
+## one word does not exist in file
+echo dog or deanna | ./querier testDir oldIndexFile.txt
+Query: dog or deanna
+Matches 1 documents
+score   1   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+--------------------------------------------------------
+
+# AND OR combinations
+
+## combinations of provided example
+echo dartmouth college or computer science | ./querier testDir oldIndexFile.txt
+Query: dartmouth college or computer science
+Matches 9 documents
+score   8   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   3   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+score   2   doc   6: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+score   2   doc   3: http://old-www.cs.dartmouth.edu/~campbell/page/
+score   2   doc   1: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+score   1   doc   7: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+score   1   doc   8: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+score   1   doc   5: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+score   1   doc   2: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+--------------------------------------------------------
+
+echo dartmouth or college and computer science | ./querier testDir oldIndexFile.txt
+Query: dartmouth or college and computer science
+Matches 8 documents
+score  13   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   4   doc   5: http://old-www.cs.dartmouth.edu/~campbell/page-8/
+score   4   doc   2: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+score   3   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+score   2   doc   6: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+score   2   doc   3: http://old-www.cs.dartmouth.edu/~campbell/page/
+score   1   doc   8: http://old-www.cs.dartmouth.edu/~campbell/page-6/
+score   1   doc   7: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+--------------------------------------------------------
+
+echo dartmouth and college computer or science | ./querier testDir oldIndexFile.txt
+Query: dartmouth and college computer or science
+Matches 7 documents
+score   7   doc   9: http://old-www.cs.dartmouth.edu/~campbell/
+score   5   doc   3: http://old-www.cs.dartmouth.edu/~campbell/page/
+score   4   doc   6: http://old-www.cs.dartmouth.edu/~campbell/page-7/
+score   3   doc   4: http://old-www.cs.dartmouth.edu/~campbell/page-3/
+score   2   doc   2: http://old-www.cs.dartmouth.edu/~campbell/page-2/
+score   2   doc   1: http://old-www.cs.dartmouth.edu/~campbell/page-4/
+score   1   doc   7: http://old-www.cs.dartmouth.edu/~campbell/page-5/
+--------------------------------------------------------
+
+
+# cleaning files
+rm -rf testDir
+rm -f tester
+rm -f oldIndexFile.txt
