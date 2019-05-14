@@ -7,7 +7,7 @@ To build, run `make`.
 
 To clean up, run `make clean`.
 
-For running `testing.sh`
+For running `testing.sh`:  
 To build, `cd ..` (to tse-sanjanagoli) and run `make`, `cd querier` so that all programs are made when running testing.sh.
 
 *Details of program are included in DESIGN.md and IMPLEMENTATION.md*  
