@@ -4,8 +4,8 @@
 
 Querier takes in command-line arguments in the following format:
 
-`./querier crawlerDirectory indexFilename`
-For example: `./querier ../crawler/testDir indexFile`
+`./querier crawlerDirectory indexFilename`  
+For example: `./querier ../crawler/testDir indexFile`  
 
 
 Then, if all inputs are validated, the program will prompt the user to enter input to `stdin`
